@@ -1,0 +1,12 @@
+# environment variables
+.env
+
+# dependencies
+**/node_modules/**
+.vscode/*
+
+# public folder assets
+**/public/* 
+
+# build folder assets
+**/build/* 

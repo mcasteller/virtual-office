@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  app:
+    container_name: myproject_app
+    build: ./app
+    ports:
+      - "3100:3100"
+      - "9229:9229"
+    volumes:
+      - ./app:/opt/app/
+
+  client:
+    container_name: myproject_client
+    build: ./client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client/src:/opt/app/myproject-client/src
+      - ./client/public:/opt/app/myproject-client/public
+    links:
+      - app
+    tty: true
+
+  mongo:
+    container_name: myproject_mongo
+    image: mongo
+    ports:
+      - "27017:27017"   
