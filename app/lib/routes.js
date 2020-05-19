@@ -2,16 +2,20 @@
 const path = require( 'path' );
 const { Router } = require( 'express' );
 const router = Router();
-
+const { logger } = require( '../lib/logger' );
 const usersRouter = require( '../modules/users/users.routes' );
+const authRouter = require( '../modules/auth/auth.routes' );
 
 /**
  * Initialize application routes
  */
 module.exports.initialize = function ( app ) {
 
+  logger.info( 'User Routes: initializing' )
+
   // Initi specific API endpoints
   usersRouter( app );
+  authRouter( app );
 
   app.use( '/', router );
 

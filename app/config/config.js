@@ -9,12 +9,13 @@ const initGlobalConfig = function () {
 
   // Get the default config
   const defaultConfig = require(
-    path.join( process.cwd(), 'config/env/default' )
+    path.join( process.cwd(), '/config/env/default' )
   );
 
+  console.log( 'config', process.cwd(), '/config/env/', process.env.NODE_ENV )
   // Get the current config
   const environmentConfig = require(
-    path.join( process.cwd(), 'config/env/', process.env.NODE_ENV )
+    path.join( process.cwd(), '/config/env/', process.env.NODE_ENV )
   ) || {};
 
   // Merge config files

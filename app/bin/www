@@ -1,25 +1,14 @@
 #!/usr/bin/env node
 
-if ( process.env.NODE_ENV !== 'production' ) {
-  const result = require( 'dotenv' ).config();
-
-  if ( result.error ) {
-    throw new Error( `Error loading environment variables: ${ result.error }` )
-  }
-}
-
 /**
  * Module dependencies.
  */
 
-const express = require( 'express' );
 const debug = require( 'debug' )( 'api:server' );
 const http = require( 'http' );
-const { initialize } = require( '../lib/index' );
+const express = require( '../lib/index' );
 
-const app = express();
-
-initialize( app );
+const app = express.initialize();
 
 /**
  * Get port from environment and store in Express.
@@ -101,3 +90,5 @@ function onListening () {
     : 'port ' + addr.port;
   debug( 'Listening on ' + bind );
 }
+
+module.exports.app = app;

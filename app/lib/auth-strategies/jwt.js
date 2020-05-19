@@ -1,6 +1,7 @@
 const JwtStrategy = require( 'passport-jwt' ).Strategy
 const mongoose = require( 'mongoose' );
 const { logger } = require ( '../logger' );
+const config = require( '../../config/config' );
 
 const strategy = () => {
 
@@ -14,7 +15,7 @@ const strategy = () => {
     }
     return token
   }
-  opts.secretOrKey = 'secret';
+  opts.secretOrKey = config.jwt.secret;
   // opts.issuer = 'accounts.examplesoft.com';
   // opts.audience = 'yoursite.net';
 

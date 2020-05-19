@@ -2,6 +2,7 @@ const express = require( 'express' );
 const cookieParser = require( 'cookie-parser' );
 const path = require( 'path' );
 const Sentry = require ( '@sentry/node' );
+const bodyParser = require( "body-parser" );
 
 /**
  * Initialize application middleware
@@ -17,5 +18,6 @@ module.exports.initialize = function ( app ) {
   app.use( express.json() );
   app.use( express.urlencoded( { extended: false } ) );
   app.use( cookieParser() );
+  app.use( bodyParser.urlencoded( { extended: false } ) );
   app.use( express.static( path.join( __dirname, '../public' ) ) );
 }

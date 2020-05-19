@@ -9,13 +9,6 @@ export const constants = {
 // to be later used by reducers to update current state
 export function createActions ( dispatch ) {
   return {
-    login: async data => {
-      const payload = await api.login( data );
 
-      dispatch( {
-        type: constants.LOGIN_SUCCESS,
-        payload
-      } );
-    }
   };
 }

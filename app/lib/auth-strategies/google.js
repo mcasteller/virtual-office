@@ -12,7 +12,7 @@ const strategy = ( demo ) => {
   const strategyOptions = {
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: `${ process.env.SERVER_API_URL }/users/auth/google/callback`,
+    callbackURL: `${ process.env.SERVER_API_URL }/auth/google/callback`,
     passReqToCallback: true
   }
 

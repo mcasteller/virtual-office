@@ -1,5 +1,6 @@
 const createError = require( 'http-errors' );
 const { logger }  = require( "./logger" );
+const sentry = require( '@sentry/node' );
 
 /**
  * Configure error handling
@@ -21,6 +22,10 @@ module.exports.initialize = function ( app ) {
     logger.error(
       `${ err.status || 500 } - ${ err.message } - ${ req.originalUrl } - ${ req.method } - ${ req.ip }`
     );
+
+    if ( sentry ) {
+      sentry.captureException( err );
+    }
 
     // render the error page
     res.status( err.status || 500 );

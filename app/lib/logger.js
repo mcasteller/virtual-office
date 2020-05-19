@@ -87,7 +87,7 @@ function _createTransports () {
   }
 
   if ( !transports.length ) {
-    throw new Error( 'Logger setup: No log trasnport were found' );
+    console.log( 'Logger setup: No log transports were assigned' );
   }
   return transports;
 }

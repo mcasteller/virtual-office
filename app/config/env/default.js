@@ -13,7 +13,8 @@ module.exports = {
     // faster - don't perform 2nd request to verify
     // log message was received/saved
     safe: false,
-    dbname: 'expressmongo'
+    dbname: 'virtualoffice',
+    seed: true
   },
   logger: {
     // logging with Morgan - https://github.com/expressjs/morgan
@@ -53,7 +54,7 @@ module.exports = {
     }
   },
   session: {
-    secret: 'myproject',
+    secret: 'virtualoffice',
     cookie: {
       // session expiration is set by default to 24 hours
       maxAge: 24 * ( 60 * 60 * 1000 ),
@@ -67,6 +68,9 @@ module.exports = {
     },
     resave: false,
     saveUninitialized: true
+  },
+  jwt: {
+    secret: process.env.JWT_SECRET || 'secret'
   },
   google: {
     clientID: process.env.GOOGLE_AUTH_CLIENT_ID || '261404288404-556hbrioma1usbcphns9ktm1lgpppq2f.apps.googleusercontent.com',

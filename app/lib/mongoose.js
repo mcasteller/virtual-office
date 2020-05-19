@@ -15,16 +15,26 @@ module.exports.initDatabase = async function () {
 
   const options = _.merge( config.db.options || {} );
 
+  const { host, port, dbname } = config.db;
+
   try {
-    // .connect( config.db.uri, options )
+    logger.info(
+      `Database: trying to connect to: mongodb://${ host }:${ port }/${ dbname }`
+    )
 
-    await mongoose.connect( 'mongodb://mongo:27017/expressmongo', options )
+    await mongoose.connect( `mongodb://${ host }:${ port }/${ dbname }`, options )
 
-    seedDatabase.start();
+    if ( config.db.seed ) {
+      seedDatabase.start();
+    }
 
   } catch ( error ) {
     logger.error( 'Could not connect to MongoDB!', error );
   }
+
+  mongoose.connection.on( 'open', () => {
+    logger.info( `mongo connection opened (mongodb://${ host }:${ port }/${ dbname })` );
+  } );
 
   // Error handler for post connection error messages
   mongoose.connection.on( 'error', ( error ) => {

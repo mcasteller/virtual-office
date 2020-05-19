@@ -1,3 +1,12 @@
+if ( process.env.NODE_ENV !== 'production' ) {
+  const result = require( 'dotenv' ).config();
+
+  if ( result.error ) {
+    throw new Error( `Error loading environment variables: ${ result.error }` )
+  }
+}
+
+const express = require( 'express' );
 const async = require( 'async' );
 const Sentry = require ( '@sentry/node' );
 const morgan = require( 'morgan' );
@@ -14,7 +23,8 @@ const errorRoutes = require( './error-routes.js' );
  * Initialize the Express application
  */
 
-module.exports.initialize = ( app ) => {
+const initialize = () => {
+  const app = express();
 
   async.series( [
     initLogger,
@@ -26,41 +36,53 @@ module.exports.initialize = ( app ) => {
     initErrorRoutes
   ], ( err, res ) => {
     if ( err ) {
-      return console.log( 'Error on app startup', err )
+      return logger.error( 'Error on app startup', err )
     }
 
-    return app;
+    logger.info( "App Initialization Complete" )
   } );
 
-  async function initLogger () {
+  return app;
+
+  function initLogger ( cb ) {
     app.use( morgan( logger.getLogFormat(), logger.getMorganOptions() ) );
+    cb();
   }
 
-  async function initDatabase () {
-    return mongoose.initDatabase()
+  function initDatabase ( cb ) {
+    mongoose.initDatabase();
+    cb();
   }
 
-  async function initMiddleware () {
+  function initMiddleware ( cb ) {
     middleware.initialize( app );
+    cb()
   }
 
-  async function initSession () {
+  function initSession ( cb ) {
     session.initialize( app );
+    cb()
   }
 
-  async function initSecurity () {
+  function initSecurity ( cb ) {
     security.initialize( app );
+    cb()
   }
 
-  async function initRoutes () {
-    routes.initialize( app )
+  function initRoutes ( cb ) {
+    routes.initialize( app );
+    cb()
   }
 
-  async function initErrorRoutes () {
+  function initErrorRoutes ( cb ) {
     // The error handler must be before any other error middleware
     // and after all controllers
     app.use( Sentry.Handlers.errorHandler() );
 
     errorRoutes.initialize( app );
+
+    cb()
   }
 }
+
+module.exports = { initialize }

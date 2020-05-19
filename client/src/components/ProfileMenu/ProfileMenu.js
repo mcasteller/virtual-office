@@ -105,7 +105,7 @@ export default function ProfileMenu () {
     {
       icon: <DashboardIcon fontSize="small" />,
       body: <ListItemText primary="Login with Google" />,
-      to: '/auth/google'
+      to: '/api/auth/google'
     }
   ]
 
