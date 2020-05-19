@@ -124,7 +124,7 @@ export default function Header () {
               </IconButton>
               : null}
             <Typography variant="h6" className={classes.title}>
-              News
+              Virtual Office
             </Typography>
             <ProfileMenu />
           </Toolbar>

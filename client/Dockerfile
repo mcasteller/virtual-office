@@ -5,10 +5,10 @@ FROM node:10.14.2-alpine
 EXPOSE 5858 9229
 
 # Create the working dir
-RUN mkdir -p /opt/app/myproject-client
-WORKDIR /opt/app/myproject-client
+RUN mkdir -p /opt/app/virtualoffice-client
+WORKDIR /opt/app/virtualoffice-client
 
-COPY package.json yarn.lock /opt/app/myproject-client/
+COPY package.json yarn.lock /opt/app/virtualoffice-client/
 
 # Install the node modules that the project needs
 RUN yarn install

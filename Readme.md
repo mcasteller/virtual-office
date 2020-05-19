@@ -132,7 +132,7 @@ You may want to add this configuration into VSC to debug server code:
 
 ```` javascript
   {
-    "name": "Docker: My Project",
+    "name": "Docker: Virtual Office",
     "type": "node",
     "request": "attach",
     "port": 9229,
@@ -142,6 +142,6 @@ You may want to add this configuration into VSC to debug server code:
     "sourceMaps": false,
     "outFiles": [],
     "localRoot": "${workspaceFolder}/app",
-    "remoteRoot": "/opt/app/myproject-app"
+    "remoteRoot": "/opt/app/virtualoffice-app"
   }
 ````
