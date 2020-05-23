@@ -26,16 +26,20 @@ export default function SideNav ( props ) {
     },
     drawer: {
       width: drawerWidth,
+      minHeight: '40vh',
       height: '100%',
-      flexShrink: 0,
-      position: 'fixed',
-      zIndex: theme.zIndex.speedDial
+      flexShrink: 0
     },
     drawerPaper: {
       top: 'unset',
-      width: drawerWidth
+      width: drawerWidth,
+      border: 'none'
     },
     drawerOpen: {
+      border: 'none',
+      position: 'static',
+      height: 'auto',
+      left: 'auto',
       top: 'unset',
       width: drawerWidth,
       transition: theme.transitions.create( 'width', {
@@ -55,7 +59,6 @@ export default function SideNav ( props ) {
       paddingLeft: theme.spacing( 4 )
     },
     // necessary for content to be below app bar
-    toolbar: theme.mixins.toolbar,
     content: {
       flexGrow: 1,
       backgroundColor: theme.palette.background.default,
@@ -119,7 +122,6 @@ export default function SideNav ( props ) {
       }}
       anchor="left"
     >
-      <div className={classes.toolbar} />
       <List
         aria-expanded={props.open}
         role= "menu"

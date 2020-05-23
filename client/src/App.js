@@ -7,6 +7,7 @@ import Page from './layouts/Page/Page';
 import Person from './views/Person/Person';
 import { AppProvider } from './context/AppProvider/store';
 import AuthenticatedContent from './components/AuthenticatedContent/AuthenticatedContent.js';
+import Profile from './views/Profile/Profile';
 
 //const env = process.env.NODE_ENV || 'development';
 
@@ -20,7 +21,7 @@ export default function App () {
             <Route path="/" component={Home} exact/>
             <AuthenticatedContent>
               <Switch>
-                <Route path="/settings/account" component={Person} />
+                <Route path="/settings/account" component={Profile} />
                 <Route path="/dashboard" component={Person} />
               </Switch>
             </AuthenticatedContent>

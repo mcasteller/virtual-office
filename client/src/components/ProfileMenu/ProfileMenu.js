@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import _ from 'lodash';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import Link from '@material-ui/core/Link';
@@ -18,9 +20,12 @@ import { Context } from '../../context/AppProvider/store';
 import { Avatar } from '@material-ui/core';
 
 const StyledMenu = ( props ) => {
+  const theme = useTheme();
+  const matches = useMediaQuery( theme.breakpoints.down( 'sm' ) );
+
   return (
     <Menu
-      elevation={0}
+      elevation={1}
       getContentAnchorEl={null}
       anchorOrigin={{
         vertical: 'bottom',
@@ -28,7 +33,7 @@ const StyledMenu = ( props ) => {
       }}
       transformOrigin={{
         vertical: 'top',
-        horizontal: 'center'
+        horizontal: matches ? 'right' : 'center'
       }}
       {...props}
     />
