@@ -5,9 +5,9 @@ const reducer = ( state, action ) => {
   case constants.GET_MESSAGE_SUCCESS:
     return { ...state, message: action.payload }
   case constants.GET_USER_PROFILE_SUCCESS:
-    return { ...state, user: action.user, error: null }
+    return { ...state, user: action.user, alert: action.alert }
   case constants.GET_USER_PROFILE_FAILURE:
-    return { ...state, error: action.errorMessage }
+    return { ...state, alert: action.alert }
   case constants.LOGOUT_SUCCESS:
     return { ...state, user: undefined, alert: action.alert }
   case constants.LOGOUT_FAILURE:

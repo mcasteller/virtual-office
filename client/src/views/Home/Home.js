@@ -1,10 +1,9 @@
-import React, { useEffect, useContext } from 'react';
+import React from 'react';
 // import logo from './logo.svg';
 // import './App.css';
 import { Button, Grid, Typography, Container, Card, CardHeader, CardContent, CardActions } from "@material-ui/core";
 import StarIcon from '@material-ui/icons/StarBorder';
 import { makeStyles } from '@material-ui/core/styles';
-import { Context } from '../../context/AppProvider/store';
 
 const useStyles = makeStyles( ( theme ) => ( {
   '@global': {

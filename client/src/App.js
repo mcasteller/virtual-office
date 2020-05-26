@@ -8,7 +8,8 @@ import Person from './views/Person/Person';
 import { AppProvider } from './context/AppProvider/store';
 import AuthenticatedContent from './components/AuthenticatedContent/AuthenticatedContent.js';
 import Profile from './views/Profile/Profile';
-
+import { Context } from './context/AppProvider/store';
+import { UserProfileProvider } from './context/UserProfileProvider/store';
 //const env = process.env.NODE_ENV || 'development';
 
 export default function App () {
@@ -20,10 +21,10 @@ export default function App () {
           <Switch>
             <Route path="/" component={Home} exact/>
             <AuthenticatedContent>
-              <Switch>
+              <UserProfileProvider>
                 <Route path="/settings/account" component={Profile} />
-                <Route path="/dashboard" component={Person} />
-              </Switch>
+              </UserProfileProvider>
+              <Route path="/dashboard" component={Person} />
             </AuthenticatedContent>
           </Switch>
         </Page>

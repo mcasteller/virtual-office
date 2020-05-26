@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -8,9 +9,11 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { TextField } from '@material-ui/core';
 
+import { Context } from '../../context/UserProfileProvider/store'
+import { Context as GlobalContext } from '../../context/AppProvider/store'
+
 const useStyles = makeStyles( ( theme ) => ( {
   root: {
-    minWidth: 275,
     padding: theme.spacing( 1, 1 )
   },
   title: {
@@ -40,7 +43,22 @@ const useStyles = makeStyles( ( theme ) => ( {
   }
 } ) );
 
-function Profile () {
+function Profile ( props ) {
+  const [ state, actions ] = useContext( Context );
+
+  useEffect( () => {
+    console.log( 'useeffect' )
+    actions.getUserProfile();
+  }, [] )
+
+  const [ globalState, globalActions ] = useContext( GlobalContext );
+
+  if ( state.alert ) {
+    globalActions.alert( state.alert )
+
+    // We need to clear the alert
+    actions.clearAlert();
+  }
 
   const classes = useStyles();
 
@@ -50,8 +68,8 @@ function Profile () {
       <Card className={classes.root} variant="outlined">
         <form className={classes.form}>
           <h3>Personal info</h3>
-          <TextField label="Name" />
-          <TextField label="Email" />
+          <TextField label="Name" value={state.user.name}/>
+          <TextField label="Email" value={state.user.email} />
           <TextField label="Address" />
           <Box>
             <Button variant="contained" size="medium" color="primary" className={classes.margin}>
@@ -68,3 +86,4 @@ function Profile () {
 }
 
 export default Profile;
+

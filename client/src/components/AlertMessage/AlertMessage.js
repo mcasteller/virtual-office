@@ -18,10 +18,12 @@ function AlertMessage () {
   }, [ alert ] )
 
   return (
-    <Collapse in={alert}>
-      <Alert severity={alert && alert.severity} >
-        {alert && alert.message}
-      </Alert>
+    <Collapse in={!!alert}>
+      {alert ?
+        <Alert severity={alert.severity} >
+          {alert.message}
+        </Alert>
+        : null}
     </Collapse>
   )
 }

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-
 import Container from '@material-ui/core/Container';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 import StarBorder from '@material-ui/icons/StarBorder';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
@@ -16,7 +18,22 @@ import pageStyles from './Page.styles';
 
 export default function Page ( props ) {
 
+  // Styles
   const classes = pageStyles();
+
+  // Hooks
+  const theme = useTheme();
+  const isDownXsBreak = useMediaQuery( theme.breakpoints.down( 'xs' ) );
+
+  const [ open, setOpen ] = useState( isDownXsBreak )
+
+  function toggleDrawer ( event ) {
+    if ( event.type === 'keydown' && ( event.key === 'Tab' || event.key === 'Shift' ) ) {
+      return;
+    }
+
+    setOpen( !open )
+  }
 
   // SideNav settings
   const adminMenuItems = [
@@ -72,22 +89,27 @@ export default function Page ( props ) {
     }
   ]
 
-  // TODO: pass down menu
   return (
     <>
-      <Header />
+      <Header
+        menuClick={toggleDrawer}
+      />
       <AlertMessage />
-      <Container maxWidth="md">
+      <Container
+        maxWidth="lg"
+        className={classes.container}
+      >
         <ErrorBoundary>
-          <Box className={classes.root} display="flex">
-            <Box flex="0 0 25%">
+          <Box className={classes.root}>
+            <Box className={classes.left}>
               <SideNav
-                open={true}
+                open={open || !isDownXsBreak}
+                closeHandler={toggleDrawer}
                 adminMenuItems={adminMenuItems}
                 menuItems={menuItems}
               />
             </Box>
-            <Box flex="2 0 50%">
+            <Box className={classes.right} >
               {props.children}
             </Box>
           </Box >
@@ -99,7 +121,6 @@ export default function Page ( props ) {
 }
 
 Page.propTypes = {
-  children: PropTypes.element.isRequired,
-  titleComponent: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired
 }
 

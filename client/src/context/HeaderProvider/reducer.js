@@ -5,7 +5,7 @@ const reducer = ( state, action ) => {
   case constants.LOGIN_SUCCESS:
     return { ...state, message: action.payload }
   default:
-    throw new Error();
+    throw new Error( `Unhandled action type: ${ action.type }` );
   }
 }
 
