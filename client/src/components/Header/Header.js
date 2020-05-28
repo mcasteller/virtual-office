@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -44,15 +44,9 @@ export default function Header ( props ) {
   // Hooks
   const classes = useStyles();
 
-  const [ open, setOpen ] = useState( true )
-
   const [ state, actions ] = useContext( Context );
 
   const user = state.user;
-
-  function toggleMenu () {
-    setOpen( !open )
-  }
 
   return (
     <HeaderProvider>
@@ -74,7 +68,6 @@ export default function Header ( props ) {
             >
               <MenuIcon
                 aria-label="toggle main menu"
-                aria-pressed={open}
                 aria-haspopup="menu"
               >
                   Click to open menu

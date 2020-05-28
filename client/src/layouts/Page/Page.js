@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Hidden from '@material-ui/core/Hidden';
 
 import StarBorder from '@material-ui/icons/StarBorder';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
@@ -95,27 +97,35 @@ export default function Page ( props ) {
         menuClick={toggleDrawer}
       />
       <AlertMessage />
-      <Container
-        maxWidth="lg"
-        className={classes.container}
-      >
-        <ErrorBoundary>
-          <Box className={classes.root}>
-            <Box className={classes.left}>
-              <SideNav
-                open={open || !isDownXsBreak}
-                closeHandler={toggleDrawer}
-                adminMenuItems={adminMenuItems}
-                menuItems={menuItems}
-              />
-            </Box>
-            <Box className={classes.right} >
-              {props.children}
-            </Box>
-          </Box >
-        </ErrorBoundary>
-        <Footer />
-      </Container>
+      <ErrorBoundary>
+        <Box className={classes.content}>
+          <Container
+            maxWidth="lg"
+            className={classes.container}
+          >
+            <Grid
+              className={classes.root}
+              container
+              spacing={5}
+            >
+              <Hidden xsDown>
+                <Grid className={classes.left} item xs={3} >
+                  <SideNav
+                    open={open || !isDownXsBreak}
+                    closeHandler={toggleDrawer}
+                    adminMenuItems={adminMenuItems}
+                    menuItems={menuItems}
+                  />
+                </Grid>
+              </Hidden>
+              <Grid className={classes.right} item xs={12} sm={9} >
+                {props.children}
+              </Grid>
+            </Grid >
+          </Container>
+        </Box>
+      </ErrorBoundary>
+      <Footer />
     </>
   );
 }
