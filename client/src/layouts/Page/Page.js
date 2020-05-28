@@ -108,16 +108,24 @@ export default function Page ( props ) {
               container
               spacing={5}
             >
-              <Hidden xsDown>
-                <Grid className={classes.left} item xs={3} >
+              {isDownXsBreak ?
+                <SideNav
+                  open={open}
+                  closeHandler={toggleDrawer}
+                  adminMenuItems={adminMenuItems}
+                  menuItems={menuItems}
+                />
+                : <Grid
+                  className={classes.left}
+                  item xs={3} >
                   <SideNav
-                    open={open || !isDownXsBreak}
+                    open={true}
                     closeHandler={toggleDrawer}
                     adminMenuItems={adminMenuItems}
                     menuItems={menuItems}
                   />
                 </Grid>
-              </Hidden>
+              }
               <Grid className={classes.right} item xs={12} sm={9} >
                 {props.children}
               </Grid>

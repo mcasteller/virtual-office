@@ -1,17 +1,15 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const pageStyles =  makeStyles( ( theme ) => ( {
-  root: {
-    display: "flex",
-    position:'relative',
-    minHeight: '50vh',
-    paddingTop: 10,
-    backgroundColor: theme.palette.grey[ 100 ]
-  },
   left: {
+    [ theme.breakpoints.down( 'sm' ) ]: {
+      padding: 0
+    },
+
     '& .MuiDrawer-paper': {
       position: 'relative',
-      border: 'none'
+      border: 'none',
+      backgroundColor: theme.palette.grey[ 100 ]
     }
   },
   content: {

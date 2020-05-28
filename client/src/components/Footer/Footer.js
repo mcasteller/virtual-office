@@ -25,7 +25,7 @@ const useStyles = makeStyles( ( theme ) => ( {
   },
   footer: {
     borderTop: `1px solid ${ theme.palette.divider }`,
-    backgroundColor: theme.palette.grey[ 100 ]
+    backgroundColor: theme.palette.grey[ 200 ]
   },
   grid: {
     paddingTop: theme.spacing( 3 ),
