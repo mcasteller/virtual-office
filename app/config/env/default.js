@@ -6,6 +6,7 @@ const path = require( 'path' );
 module.exports = {
 
   db: {
+    connectionURI: process.env.MONGODB_URI || '',
     host: 'mongo',
     port: 27017,
     options: {},

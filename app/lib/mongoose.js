@@ -15,14 +15,18 @@ module.exports.initDatabase = async function () {
 
   const options = _.merge( config.db.options || {} );
 
-  const { host, port, dbname } = config.db;
+  const { standardConnectionURI, host, port, dbname } = config.db;
 
   try {
+    const connectionURI = standardConnectionURI
+      ? standardConnectionURI
+      : `mongodb://${ host }:${ port }/${ dbname }`;
+
     logger.info(
-      `Database: trying to connect to: mongodb://${ host }:${ port }/${ dbname }`
+      `Database: trying to connect to: ${ connectionURI }`
     )
 
-    await mongoose.connect( `mongodb://${ host }:${ port }/${ dbname }`, options )
+    await mongoose.connect( connectionURI, options )
 
     if ( config.db.seed ) {
       seedDatabase.start();
