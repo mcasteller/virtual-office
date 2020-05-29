@@ -88,7 +88,7 @@ export default function Footer () {
             </Grid>
           ) )}
         </Grid>
-        <Box m={0, 5}>
+        <Box m={0, 2}>
           <Copyright />
         </Box>
       </Container>

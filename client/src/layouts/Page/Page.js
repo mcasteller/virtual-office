@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Hidden from '@material-ui/core/Hidden';
 
 import StarBorder from '@material-ui/icons/StarBorder';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
@@ -16,6 +15,8 @@ import Footer from '../../components/Footer/Footer';
 import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary'
 import AlertMessage from '../../components/AlertMessage/AlertMessage';
 import SideNav from '../../components/SideNav/SideNav';
+import { Context } from '../../context/AppProvider/store';
+
 import pageStyles from './Page.styles';
 
 export default function Page ( props ) {
@@ -24,6 +25,10 @@ export default function Page ( props ) {
   const classes = pageStyles();
 
   // Hooks
+  const [ state, actions ] = useContext( Context );
+
+  const { user } = state
+
   const theme = useTheme();
   const isDownXsBreak = useMediaQuery( theme.breakpoints.down( 'xs' ) );
 
@@ -100,33 +105,28 @@ export default function Page ( props ) {
       <ErrorBoundary>
         <Box className={classes.content}>
           <Container
-            maxWidth="lg"
             className={classes.container}
+            maxWidth="lg"
           >
             <Grid
-              className={classes.root}
               container
               spacing={5}
             >
-              {isDownXsBreak ?
+              {user ? (
                 <SideNav
+                  className={classes.sidenav}
                   open={open}
                   closeHandler={toggleDrawer}
                   adminMenuItems={adminMenuItems}
                   menuItems={menuItems}
                 />
-                : <Grid
-                  className={classes.left}
-                  item xs={3} >
-                  <SideNav
-                    open={true}
-                    closeHandler={toggleDrawer}
-                    adminMenuItems={adminMenuItems}
-                    menuItems={menuItems}
-                  />
-                </Grid>
-              }
-              <Grid className={classes.right} item xs={12} sm={9} >
+              ) : null }
+              <Grid
+                className={classes.right}
+                item
+                xs={12}
+                sm={user ? 9 : 12}
+              >
                 {props.children}
               </Grid>
             </Grid >

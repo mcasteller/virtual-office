@@ -2,9 +2,11 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Context } from '../../context/AppProvider/store';
 
-import { useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Drawer from '@material-ui/core/Drawer';
+import Grid from '@material-ui/core/Grid';
+
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -19,6 +21,22 @@ export default function SideNav ( props ) {
   const theme = useTheme();
 
   const isDownXsBreak = useMediaQuery( theme.breakpoints.down( 'xs' ) );
+
+  const useStyles = makeStyles( ( theme ) => ( {
+    root: {
+      [ theme.breakpoints.down( 'xs' ) ]: {
+        display: 'none'
+      },
+
+      '& .MuiDrawer-paper': {
+        position: 'relative',
+        border: 'none',
+        backgroundColor: theme.palette.grey[ 100 ]
+      }
+    }
+  } ) );
+
+  const classes = useStyles();
 
   // Hooks
   const [ state, actions ] = useContext( Context );
@@ -62,23 +80,28 @@ export default function SideNav ( props ) {
   }
 
   return (
-    <Drawer
-      variant={isDownXsBreak ? 'temporary' : 'persistent'}
-      anchor="left"
-      open={props.open}
-      onClose={props.closeHandler}
+    <Grid
+      className={classes.root}
+      item xs={3}
     >
-      <List
-        aria-expanded={props.open}
-        role= "menu"
-        aria-haspopup="menu"
+      <Drawer
+        variant={isDownXsBreak ? 'temporary' : 'persistent'}
+        anchor="left"
+        open={props.open || !isDownXsBreak}
+        onClose={props.closeHandler}
       >
-        {user && user.isAdmin
-          ? menuItemsBuilder( props.adminMenuItems )
-          : menuItemsBuilder( props.menuItems )
-        }
-      </List>
-    </Drawer>
+        <List
+          aria-expanded={props.open}
+          role= "menu"
+          aria-haspopup="menu"
+        >
+          {user.isAdmin ?
+            menuItemsBuilder( props.adminMenuItems )
+            : menuItemsBuilder( props.menuItems )
+          }
+        </List>
+      </Drawer>
+    </Grid>
   )
 }
 
