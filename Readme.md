@@ -1,18 +1,19 @@
 
+This web app is currently being developed.
 
 ## Introduction
-This is just a boilerplate project to feature some Node and React related technologies.
+This is a web app designed to organize your professional activities. It has roles that allow client and professional to exchange data to overcome a particular service. Both should be logged in into the platform to interact with their features, so far we use google authentication so only google accounts can join.
 
 ## Tech Stack
-- Docker
-- Node/Express
+- Express
 - Mongoose
-- Logging (winston/morgan)
 - JWT authentication using Passport.JS
-- Sentry
+- Logging (winston/morgan)
+- Sentry to analyze error logs
+- Docker
 - React (React Context to deal with state management)
 - Material UI
-- Jest + Enzyme
+- Jest + testing-library
 
 ## Screen capture
 ![application main view screenshot](https://user-images.githubusercontent.com/5411855/81440346-86422f00-9135-11ea-8f15-474f80891db0.png)
