@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "start-dev": "gulp nodemon",
     "build-client": "cd ../client && yarn build && cp -R build/* ../app/public/",
-    "test": "NODE_ENV=test mocha --reporter spec **/*.tests.js"
+    "test": "NODE_ENV=test mocha --reporter spec ./modules/**/*.test.js ./lib/**/*.test.js"
   },
   "dependencies": {
     "@sentry/node": "5.15.5",
@@ -40,6 +40,7 @@
     "gulp": "^4.0.2",
     "gulp-nodemon": "^2.5.0",
     "sinon": "^9.0.2",
+    "sinon-chai": "^3.5.0",
     "supertest": "^4.0.2"
   }
 }

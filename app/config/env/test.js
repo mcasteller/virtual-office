@@ -5,7 +5,6 @@ const path = require( 'path' );
 
 module.exports = {
   db: {
-    host: 'localhost',
     dbname: 'virtualoffice-test'
   },
   logger: {

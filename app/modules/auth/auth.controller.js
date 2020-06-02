@@ -4,13 +4,11 @@ const config = require( '../../config/config' );
 
 module.exports.authenticate = ( req, res, next ) => {
 
-  logger.info( 'User Route: authentication successfull' );
-
   const user = {
-    name: req.user.username,
+    _id: req.user._id,
     email: req.user.email,
-    displayName: req.user.displayName,
-    provider: req.user.provider,
+    firstName: req.user.firstName,
+    lastName: req.user.lastName,
     roles: req.user.roles
   }
 
@@ -20,7 +18,7 @@ module.exports.authenticate = ( req, res, next ) => {
 
   res.cookie( 'jwt', token, { httpOnly: true } )
 
-  res.redirect( '/dashboard' )
+  res.redirect( 'back' )
 }
 
 module.exports.logout = ( req, res, next ) => {

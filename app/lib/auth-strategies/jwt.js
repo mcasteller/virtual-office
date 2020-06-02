@@ -22,8 +22,8 @@ const strategy = () => {
   return new JwtStrategy( opts, function ( jwt_payload, done ) {
     const User = mongoose.model( 'User' );
 
-    const { email } = jwt_payload.data;
-    User.findOne( { email }, function ( err, user ) {
+    const { _id } = jwt_payload.data;
+    User.findOne( { _id: mongoose.Types.ObjectId( _id ) }, function ( err, user ) {
       if ( err ) {
         logger.error( 'JWT Strategy error:', err );
 

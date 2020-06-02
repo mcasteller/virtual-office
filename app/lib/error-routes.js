@@ -30,6 +30,20 @@ module.exports.initialize = function ( app ) {
     // render the error page
     res.status( err.status || 500 );
 
-    res.redirect( '/error' )
+    res.format( {
+      text () {
+        res.send( err.message );
+      },
+
+      html () {
+        res.redirect( 'back' )
+      },
+
+      json () {
+        res.json( {
+          err
+        } );
+      }
+    } );
   } );
 }

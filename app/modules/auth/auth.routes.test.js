@@ -3,12 +3,13 @@
 
 const request = require( 'supertest' );
 const passport = require( 'passport' );
+const jwt = require( 'jsonwebtoken' )
 const sinon = require( 'sinon' );
 const mongoose = require( 'mongoose' );
-const express = require( '../../lib/index' );
 const chai = require( 'chai' );
 const expect = chai.expect;
-const jwt = require( 'jsonwebtoken' )
+
+const express = require( '../../lib/index' );
 const utils = require( '../test/utils' );
 const config = require( '../../config/config' );
 
@@ -18,11 +19,10 @@ describe( '/api/auth', function () {
     app;
 
   const user = {
-    username: 'test user',
+    firstName: 'test',
+    lastName: 'user',
     email: 'testuser@mail.com',
-    displayName: 'Test User',
-    provider: 'testCase',
-    roles: [ 'admin' ]
+    roles: [ 'user' ]
   }
 
   before( function ( done ) {
@@ -44,7 +44,8 @@ describe( '/api/auth', function () {
     done();
   } );
 
-  it( 'GET google/callback -> it generates and sign a JWT token with user data retrieved from google authentication', function ( done ) {
+  it( 'GET google/callback -> it generates, sign and returns a JWT token with user data', function ( done ) {
+
     agent
       .get( '/api/auth/google/callback' )
       .expect( 200 )
@@ -53,12 +54,13 @@ describe( '/api/auth', function () {
 
         const decoded = jwt.verify( token, config.jwt.secret )
 
-        const { name, email, displayName, provider, roles } = decoded.data;
+        // we expect at least these fields to be available
+        const { _id, firstName, lastName, email, roles } = decoded.data;
 
-        expect( name ).to.equal( user.username );
+        expect( _id ).to.equal( user._id );
+        expect( firstName ).to.equal( user.firstName );
+        expect( lastName ).to.equal( user.lastName );
         expect( email ).to.equal( user.email );
-        expect( displayName ).to.equal( user.displayName );
-        expect( provider ).to.equal( user.provider );
         expect( roles ).to.include( user.roles[ 0 ] );
 
         done()
@@ -67,7 +69,6 @@ describe( '/api/auth', function () {
 
   after( function ( done ) {
     passport.authenticate.restore();
-
     mongoose.connection.close( done );
   } );
 } );
