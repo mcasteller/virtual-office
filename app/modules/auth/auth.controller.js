@@ -18,7 +18,7 @@ module.exports.authenticate = ( req, res, next ) => {
 
   res.cookie( 'jwt', token, { httpOnly: true } )
 
-  res.redirect( 'back' )
+  res.redirect( '/dashboard' )
 }
 
 module.exports.logout = ( req, res, next ) => {

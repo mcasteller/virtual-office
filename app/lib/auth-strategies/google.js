@@ -35,7 +35,7 @@ const strategy = ( demo ) => {
     profile,
     done
   ) => {
-    profile.id = undefined;
+
     // Check required parameters
     if( _.isUndefined( profile.id )
       || _.isEmpty( profile.id ) ) {

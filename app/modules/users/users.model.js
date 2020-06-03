@@ -40,10 +40,6 @@ const UserSchema = new Schema( {
     trim: true,
     default: ''
   },
-  displayName: {
-    type: String,
-    trim: true
-  },
   email: {
     type: String,
     index: {
@@ -54,20 +50,15 @@ const UserSchema = new Schema( {
     trim: true,
     default: ''
   },
-  username: {
+  address: {
     type: String,
-    unique: 'Username already exists',
-    required: 'Please fill in a username',
-    validate: [ validateUsername, 'Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.' ],
-    lowercase: true,
     trim: true
   },
-  password: {
-    type: String,
-    default: ''
+  phone: {
+    type: Number
   },
-  salt: {
-    type: String
+  birthDate: {
+    type: Date
   },
   profileImageURL: {
     type: String,
@@ -77,7 +68,10 @@ const UserSchema = new Schema( {
     type: String,
     required: 'Provider is required'
   },
-  providerData: {},
+  providerId: {
+    type: String,
+    required: 'ProviderId is required'
+  },
   additionalProvidersData: {},
   roles: {
     type: [{
@@ -114,6 +108,11 @@ const UserSchema = new Schema( {
 UserSchema.virtual( 'isAdmin' )
   .get( function () {
     return _.includes( this.roles, 'admin' )
+  } )
+
+UserSchema.virtual( 'displayName' )
+  .get( function () {
+    return `${ this.firstName } ${ this.lastName }`
   } )
 
 // /**

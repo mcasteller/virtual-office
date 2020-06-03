@@ -13,10 +13,19 @@ module.exports = ( app ) => {
     router
   );
 
-  // This url will only open, if the user is signed in
   router.get(
-    '/profile',
-    controller.getUser
+    '/credentials',
+    controller.getCredentials
+  );
+
+  router.get(
+    '/',
+    controller.getProfile
+  );
+
+  router.post(
+    '/',
+    controller.update
   );
 
   router.get( '/test',

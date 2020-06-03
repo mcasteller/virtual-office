@@ -21,21 +21,22 @@ const strategy = () => {
 
   return new JwtStrategy( opts, function ( jwt_payload, done ) {
     const User = mongoose.model( 'User' );
-
     const { _id } = jwt_payload.data;
-    User.findOne( { _id: mongoose.Types.ObjectId( _id ) }, function ( err, user ) {
-      if ( err ) {
-        logger.error( 'JWT Strategy error:', err );
 
-        return done( err, false );
-      }
-      if ( user ) {
-        return done( null, user );
-      } else {
+    User.findOne( { _id: mongoose.Types.ObjectId( _id ) },
+      function ( err, user ) {
+        if ( err ) {
+          logger.error( 'JWT Strategy error:', err );
+
+          return done( err, false );
+        }
+        if ( user ) {
+          return done( null, user );
+        } else {
         // If user does not exists, we deny access
-        return done( null, false );
-      }
-    } );
+          return done( null, false );
+        }
+      } );
   } )
 }
 

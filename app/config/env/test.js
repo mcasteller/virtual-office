@@ -43,5 +43,8 @@ module.exports = {
         humanReadableUnhandledException: true
       }
     }
+  },
+  jwt: {
+    secret: 'test'
   }
 };
