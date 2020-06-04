@@ -7,13 +7,15 @@ This is a web app designed to organize your professional activities. It has role
 ## Tech Stack
 - Express
 - Mongoose
+- Openapi validation using express-openapi-validator
 - JWT authentication using Passport.JS
 - Logging (winston/morgan)
 - Sentry to analyze error logs
 - Docker
 - React (React Context to deal with state management)
-- Material UI
+- Material UI (using CSS-in-JS styles)
 - Jest + testing-library
+- Formik + Yup to deal with client side form validation
 
 ## Screen capture
 ![application main view screenshot](https://user-images.githubusercontent.com/5411855/81440346-86422f00-9135-11ea-8f15-474f80891db0.png)
