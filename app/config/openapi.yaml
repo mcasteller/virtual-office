@@ -1,0 +1,51 @@
+openapi: "3.0.0"
+info:
+  title: Virtual Office
+  description: Organize your professional services on line.
+  version: 1.0.0
+  license:
+    name: MIT
+servers:
+  - url: /api
+    description: Local development server
+paths:
+  /users:
+    post:
+      summary: Creates a new pet in the store.
+      operationId: updateUser
+      requestBody:
+        description: Updates user profile
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - firstName
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                address:
+                  type: string
+                phone: 
+                  type: number
+
+      responses:
+        '200':
+          description: user response
+      #     content:
+      #       application/json:
+      #         schema:
+      #           type: object
+      #           required:
+      #             - firstName
+      #           properties:
+      #             firstName:
+      #               type: string
+      #             lastName:
+      #               type: string
+      #             address:
+      #               type: string
+      #             phone: 
+      #               type: number

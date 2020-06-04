@@ -4,9 +4,9 @@ const reducer = ( state, action ) => {
   switch( action.type ) {
   case constants.GET_MESSAGE_SUCCESS:
     return { ...state, message: action.payload }
-  case constants.GET_USER_PROFILE_SUCCESS:
+  case constants.GET_USER_CREDENTIALS_SUCCESS:
     return { ...state, user: action.user, error: null }
-  case constants.GET_USER_PROFILE_FAILURE:
+  case constants.GET_USER_CREDENTIALS_FAILURE:
     return { ...state, error: action.errorMessage }
   case constants.LOGOUT_SUCCESS:
     return { ...state, user: undefined, alert: action.alert }

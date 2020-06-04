@@ -12,7 +12,7 @@ function AuthenticatedContent ( props ) {
 
   useEffect( () => {
     if ( _.isNil( user ) ) {
-      actions.getUserProfile();
+      actions.getUserCredentials();
     }
   }, [] );
 

@@ -109,6 +109,48 @@ describe( '/api/users/', function () {
       } )
   } );
 
+  it( 'GET / -> if JWT provided is a valid one then UPDATES and RETURNS user profile data', function ( done ) {
+
+    const updatedUser = {
+      firstName: 'Peter',
+      lastName: 'Parker',
+      phone: 456123,
+      address: 'Av. Siempre Viva'
+    };
+
+    agent
+      .post( '/api/users/' )
+      .set( 'Cookie', `jwt=${ adminToken }` )
+      .send( {
+        firstName: updatedUser.firstName,
+        lastName: updatedUser.lastName,
+        phone: updatedUser.phone,
+        address: updatedUser.address
+      } )
+      .end( ( err, res ) => {
+        const { lastName, phone, address } = res.body;
+
+        // expect( firstName ).to.equal( updatedUser.firstName );
+        expect( lastName ).to.equal( updatedUser.lastName );
+        expect( phone ).to.equal( updatedUser.phone );
+        expect( address ).to.equal( updatedUser.address );
+
+        done()
+      } )
+  } );
+
+  // it( 'GET / -> if JWT provided is NOT valid then returns an error message', function ( done ) {
+  //   agent
+  //     .get( '/api/users/' )
+  //     .set( 'Cookie', 'jwt=papaya' )
+  //     .end( ( err, res ) => {
+  //       expect( res.status ).to.equal( 401 )
+  //       expect( res.text ).to.equal( UNAUTHORIZED );
+
+  //       done()
+  //     } )
+  // } );
+
   after( async function () {
     await User.remove();
     await mongoose.connection.close();

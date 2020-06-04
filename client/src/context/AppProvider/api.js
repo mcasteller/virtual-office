@@ -1,6 +1,6 @@
 
-export function getUserProfile () {
-  return fetch( '/api/users/profile', { method: 'GET' } )
+export function getUserCredentials () {
+  return fetch( '/api/users/credentials', { method: 'GET' } )
     .then( _handleErrors )
     .then( response => response.json() )
 }

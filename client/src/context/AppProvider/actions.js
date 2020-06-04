@@ -4,8 +4,8 @@ import history from '../../history';
 // Constants
 export const constants = {
   GET_MESSAGE_SUCCESS: 'GET_MESSAGE.SUCCESS',
-  GET_USER_PROFILE_SUCCESS: 'GET_USER_PROFILE_SUCCESS',
-  GET_USER_PROFILE_FAILURE: 'GET_USER_PROFILE_FAILURE',
+  GET_USER_CREDENTIALS_SUCCESS: 'GET_USER_CREDENTIALS_SUCCESS',
+  GET_USER_CREDENTIALS_FAILURE: 'GET_USER_CREDENTIALS_FAILURE',
   LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
   LOGOUT_FAILURE: 'LOGOUT_FAILURE',
   ALERT: 'ALERT',
@@ -17,19 +17,19 @@ export const constants = {
 // to be later used by reducers to update current state
 export function createActions ( dispatch ) {
   return {
-    getUserProfile: async () => {
+    getUserCredentials: async () => {
       try {
-        const user = await api.getUserProfile();
+        const user = await api.getUserCredentials();
 
         localStorage.setItem( "user", JSON.stringify( user ) );
 
         dispatch( {
-          type: constants.GET_USER_PROFILE_SUCCESS,
+          type: constants.GET_USER_CREDENTIALS_SUCCESS,
           user
         } );
       } catch ( e ) {
         dispatch( {
-          type: constants.GET_USER_PROFILE_FAILURE,
+          type: constants.GET_USER_CREDENTIALS_FAILURE,
           errorMessage: e.message || e
         } );
       }

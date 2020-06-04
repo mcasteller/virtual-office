@@ -7,16 +7,28 @@ import Card from '@material-ui/core/Card';
 import {
   List,
   ListItem,
-  ListItemText,
-  Box,
-  Button } from '@material-ui/core';
+  ListItemText
+} from '@material-ui/core';
+
+import IconButton from '@material-ui/core/IconButton';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 
 import { Context } from '../../context/UserProfileProvider/store'
 import { Context as GlobalContext } from '../../context/AppProvider/store'
+import ProfileDialog from './ProfileDialog';
 
 const useStyles = makeStyles( ( theme ) => ( {
   root: {
-    padding: theme.spacing( 1, 1 )
+    padding: theme.spacing( 1, 1 ),
+    position: 'relative'
+  },
+  dialogContent: {
+    padding: theme.spacing( 3 )
+  },
+  editBtn: {
+    position: 'absolute',
+    bottom: theme.spacing( 1 ),
+    right: theme.spacing( 1 )
   },
   title: {
     fontSize: 14
@@ -46,6 +58,10 @@ const useStyles = makeStyles( ( theme ) => ( {
 } ) );
 
 function Profile ( props ) {
+
+  // hooks
+  const [ open, setOpen ] = useState( false );
+
   const [ state, actions ] = useContext( Context );
 
   useEffect( () => {
@@ -65,8 +81,12 @@ function Profile ( props ) {
   // Variables
   const personFields = [
     {
-      label: "Name",
-      value: state.user.displayName
+      label: "First name",
+      value: state.user.firstName
+    },
+    {
+      label: "Last name",
+      value: state.user.lastName
     },
     {
       label: "Address",
@@ -78,19 +98,25 @@ function Profile ( props ) {
     },
     {
       label: "Date of birth",
-      value: state.user.birthdate
+      value: state.user.birthDate
     }
   ]
 
   const classes = useStyles();
 
-  function handleSubmit () {
-    actions.updateUser()
+  // functions
+  function onEditBtnClick () {
+    setOpen( true );
   }
 
+  function updateUser ( data ) {
+    actions.updateUserProfile( data )
+  }
+
+  // renders
   function generateListItems () {
-    return personFields.map( field => (
-      <ListItem key={field}>
+    return personFields.map( ( field, index ) => (
+      <ListItem key={index}>
         <ListItemText
           primary={`${ field.label }:`}
           secondary={field.value}
@@ -101,35 +127,23 @@ function Profile ( props ) {
 
   return (
     <>
-      <h2>Profile</h2>
       <Card className={classes.root} variant="outlined">
-        <form
-          className={classes.form}
-          onSubmit={handleSubmit}>
-          <h3>Personal info</h3>
-          <List dense="true">
-            {generateListItems()}
-          </List>
-          {/* <TextField error label="Name" value={state.user.name}/>
-          <TextField label="Address" value={state.user.address}/>
-          <TextField label="Phone" value={state.user.phone}/>
-          <TextField label="Date of birth" value={state.user.birthdate}/> */}
-          <Box>
-            <Button
-              className={classes.margin}
-              type="submit"
-              variant="contained"
-              size="medium"
-              color="primary"
-            >
-            Save
-            </Button>
-            <Button variant="text" size="medium" color="primary" className={classes.margin}>
-            Cancel
-            </Button>
-          </Box>
-        </form>
+        <h2>Personal info</h2>
+        <List dense={true}>
+          {generateListItems()}
+        </List>
+        <IconButton
+          className={classes.editBtn}
+          onClick={onEditBtnClick} >
+          <EditOutlinedIcon />
+        </IconButton>
       </Card>
+
+      <ProfileDialog
+        open={open}
+        user={state.user}
+        setOpen={setOpen}
+        updateUser={updateUser} />
     </>
   )
 }

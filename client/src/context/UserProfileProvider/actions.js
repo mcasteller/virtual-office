@@ -45,6 +45,30 @@ export function createActions ( dispatch ) {
       dispatch( {
         type: constants.CLEAR_ALERT
       } );
+    },
+    updateUserProfile: async () => {
+      try {
+        const user = await api.updateUserProfile();
+
+        localStorage.setItem( "user", JSON.stringify( user ) );
+
+        dispatch( {
+          type: constants.UPDATE_USER_PROFILE_SUCCESS,
+          user,
+          alert: {
+            message: 'User profile successfully updated!',
+            severity: 'success'
+          }
+        } );
+      } catch ( e ) {
+        dispatch( {
+          type: constants.UPDATE_USER_PROFILE_FAILURE,
+          alert: {
+            message: 'Error updating user profile',
+            severity: 'error'
+          }
+        } );
+      }
     }
   }
 }

@@ -1,6 +1,12 @@
 
 export function getUserProfile () {
-  return fetch( '/api/users/profile', { method: 'GET' } )
+  return fetch( '/api/users', { method: 'GET' } )
+    .then( _handleErrors )
+    .then( response => response.json() )
+}
+
+export function updateUserProfile () {
+  return fetch( '/api/users', { method: 'POST' } )
     .then( _handleErrors )
     .then( response => response.json() )
 }

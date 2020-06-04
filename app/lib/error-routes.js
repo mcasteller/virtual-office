@@ -1,4 +1,5 @@
 const createError = require( 'http-errors' );
+const Sentry = require ( '@sentry/node' );
 const { logger }  = require( "./logger" );
 const sentry = require( '@sentry/node' );
 
@@ -14,7 +15,11 @@ module.exports.initialize = function ( app ) {
 
   // error handler
   app.use( function ( err, req, res, next ) {
-  // set locals, only providing error in development
+    // The error handler must be before any other error middleware
+    // and after all controllers
+    app.use( Sentry.Handlers.errorHandler() );
+
+    // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get( 'env' ) === 'development' ? err : {};
 

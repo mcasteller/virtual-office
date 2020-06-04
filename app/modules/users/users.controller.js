@@ -2,6 +2,8 @@ const _ = require( 'lodash' );
 const { logger } = require( '../../lib/logger' );
 const User = require( './users.model' );
 
+const whitelistedFields = [ 'firstName', 'lastName', 'phone', 'address' ];
+
 async function getProfile ( req, res, next ) {
 
   const userId = req.user._id;;
@@ -25,20 +27,20 @@ function getCredentials ( req, res, next ) {
 
 async function update ( req, res, next ) {
 
-  const { firstName, lastName, address, phone, birthDate } = req.body;
+  const params = _.pick( req.body, whitelistedFields );
 
-  const currentUser = await User.findOne( { providerId: req.user.providerId } );
+  const user = await User.findOne( { _id: req.user._id } );
 
-  currentUser = _.merge( currentUser, {
-    firstName,
-    lastName,
-    address,
-    phone,
-    birthDate } );
+  user.firstName = req.body.firstName;
+  user.lastName = req.body.lastName;
+  user.address = req.body.address;
+  user.phone = req.body.phone;
 
-  const updatedUser = await currentUser.save();
+  console.log('user', user)
 
-  res.json( updatedUser );
+  await user.save();
+
+  res.json( user );
 }
 
 module.exports = {
