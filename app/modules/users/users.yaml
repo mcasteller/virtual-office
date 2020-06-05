@@ -1,0 +1,55 @@
+users:
+  post:
+    summary: Update an existing user profile.
+    operationId: updateUser
+    requestBody:
+      required: true
+      description: Updates user profile
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+
+    responses:
+      '200':
+        description: A user object holding profile fields
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      '400':
+        description: Request property validation error.
+      '401':
+        description: JWT provided is NOT valid.
+      '404':
+        description: A user with the specified ID was not found.
+      default:
+        description: Unexpected error
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address:
+          type: string
+        phone: 
+          type: number
+      required:
+        - firstName
+    
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+

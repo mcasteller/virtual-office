@@ -10,42 +10,9 @@ servers:
     description: Local development server
 paths:
   /users:
-    post:
-      summary: Creates a new pet in the store.
-      operationId: updateUser
-      requestBody:
-        description: Updates user profile
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - firstName
-              properties:
-                firstName:
-                  type: string
-                lastName:
-                  type: string
-                address:
-                  type: string
-                phone: 
-                  type: number
-
-      responses:
-        '200':
-          description: user response
-      #     content:
-      #       application/json:
-      #         schema:
-      #           type: object
-      #           required:
-      #             - firstName
-      #           properties:
-      #             firstName:
-      #               type: string
-      #             lastName:
-      #               type: string
-      #             address:
-      #               type: string
-      #             phone: 
-      #               type: number
+    $ref: '../modules/users/users.yaml#/users'
+  # securitySchemes:
+    # ApiKeyAuth:
+    #   type: apiKey
+    #   in: header
+    #   name: X-API-Key
