@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Context } from '../../context/AppProvider/store';
 
@@ -13,6 +13,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
+import IconButton from '@material-ui/core/IconButton';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+
 import CollapseMenuItem from '../CollapseMenuItem/CollapseMenuItem';
 
 export default function SideNav ( props ) {
@@ -24,10 +27,11 @@ export default function SideNav ( props ) {
 
   const useStyles = makeStyles( ( theme ) => ( {
     root: {
-      [ theme.breakpoints.down( 'xs' ) ]: {
-        display: 'none'
+      '& .MuiGrid-item': {
+        [ theme.breakpoints.down( 'xs' ) ]: {
+          display: 'none'
+        }
       },
-
       '& .MuiDrawer-paper': {
         position: 'relative',
         border: 'none',
@@ -43,6 +47,9 @@ export default function SideNav ( props ) {
 
   const { user } = state
 
+  const [ open, setOpen ] = useState( isDownXsBreak )
+
+  // functions
   function menuItemsBuilder ( items ) {
     return items.map( ( item, index ) => {
       switch ( item.container ) {
@@ -79,19 +86,43 @@ export default function SideNav ( props ) {
     } )
   }
 
+  function closeHandler ( event ) {
+    if ( event.type === 'keydown' && ( event.key === 'Tab' || event.key === 'Shift' ) ) {
+      return;
+    }
+
+    setOpen( !open )
+  }
+
   return (
     <Grid
       className={classes.root}
       item xs={3}
     >
+      {user && isDownXsBreak ?
+        <IconButton
+          edge="start"
+          className={classes.menuButton}
+          color="primary"
+          onClick={setOpen}
+        >
+          <AddCircleIcon
+            fontSize="large"
+            aria-label="toggle main menu"
+            aria-haspopup="menu"
+          >
+                  Click to open menu
+          </AddCircleIcon>
+        </IconButton>
+        : null}
       <Drawer
         variant={isDownXsBreak ? 'temporary' : 'persistent'}
         anchor="left"
-        open={props.open || !isDownXsBreak}
-        onClose={props.closeHandler}
+        open={open || !isDownXsBreak}
+        onClose={closeHandler}
       >
         <List
-          aria-expanded={props.open}
+          aria-expanded={open}
           role= "menu"
           aria-haspopup="menu"
         >
@@ -106,8 +137,6 @@ export default function SideNav ( props ) {
 }
 
 SideNav.propTypes = {
-  open: PropTypes.bool.isRequired,
-  closeHandler: PropTypes.func.isRequired,
   adminMenuItems: PropTypes.array,
   menuItems: PropTypes.array
 }

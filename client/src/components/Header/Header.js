@@ -6,9 +6,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import AppBar from '@material-ui/core/AppBar';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-
-import MenuIcon from '@material-ui/icons/Menu';
 
 import { HeaderProvider } from '../../context/HeaderProvider/store';
 import ProfileMenu from '../ProfileMenu/ProfileMenu';
@@ -59,21 +56,6 @@ export default function Header ( props ) {
           className={classes.innerContainer}
           maxWidth="lg"
         >
-          {user && isDownXsBreak ?
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              onClick={props.menuClick}
-            >
-              <MenuIcon
-                aria-label="toggle main menu"
-                aria-haspopup="menu"
-              >
-                  Click to open menu
-              </MenuIcon>
-            </IconButton>
-            : null}
           <Typography variant="h6" className={classes.title}>
               Virtual Office
           </Typography>
