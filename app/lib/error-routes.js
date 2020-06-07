@@ -41,7 +41,7 @@ module.exports.initialize = function ( app ) {
       },
 
       html () {
-        res.redirect( 'back' )
+        res.redirect( '/error' );
       },
 
       json () {

@@ -1,14 +1,23 @@
 
-const winston = require( 'winston' );
-const fs = require( 'fs' );
 const _ = require( 'lodash' );
+const winston = require( 'winston' );
+const { combine, timestamp, label, printf } = winston.format;
 
 const config = require( '../config/config' );
+
+const myFormat = printf( ( { level, message, label, timestamp } ) => {
+  return `${ timestamp } ${ label } ${ level }: ${ message }`;
+} );
 
 /**
 * Initialize winston logger
 */
 const logger = new winston.createLogger( {
+  format: combine(
+    label( { label: '|' } ),
+    timestamp(),
+    myFormat
+  ),
   transports: _createTransports(),
   exitOnError: false
 } )
@@ -75,6 +84,11 @@ function _createTransports () {
     transports.push( new winston.transports.Console( winstonConsoleOpts ) );
   }
 
+  // TODO: add this one at the time we set up MongoDb connection
+  // if ( config.logger.sentry ) {
+  //   const winstonSentryOpts = _.merge( output.default, output.sentry ) ;
+  //   transports.push( new winston.transports. ( winstonSentryOpts ) );
+  // }
   // TODO: add this one at the time we set up MongoDb connection
   // if ( config.logger.mongo ) {
   //   const winstonMongoOpts =_.merge( output.default, output.mongo );
