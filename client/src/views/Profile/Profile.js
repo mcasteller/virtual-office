@@ -16,6 +16,7 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import { Context } from '../../context/UserProfileProvider/store'
 import { Context as GlobalContext } from '../../context/AppProvider/store'
 import ProfileDialog from './ProfileDialog';
+import AlertMessage from '../../components/AlertMessage/AlertMessage';
 
 const useStyles = makeStyles( ( theme ) => ( {
   root: {
@@ -144,6 +145,8 @@ function Profile ( props ) {
         user={state.user}
         setOpen={setOpen}
         updateUser={updateUser} />
+
+      <AlertMessage alert={state.alert} />
     </>
   )
 }

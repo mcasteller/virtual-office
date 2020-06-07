@@ -7,7 +7,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary'
-import AlertMessage from '../../components/AlertMessage/AlertMessage';
 
 export default function Page ( props ) {
 
@@ -25,7 +24,6 @@ export default function Page ( props ) {
   return (
     <>
       <Header />
-      <AlertMessage />
       <Box className={classes.content}>
         <ErrorBoundary>
           {props.children}

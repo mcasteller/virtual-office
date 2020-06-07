@@ -31,11 +31,11 @@ export function createActions ( dispatch ) {
             severity: 'success'
           }
         } );
-      } catch ( e ) {
+      } catch ( err ) {
         dispatch( {
           type: constants.GET_USER_PROFILE_FAILURE,
           alert: {
-            message: 'Error retrieving user profile',
+            message: `Error retrieving user profile: ${ err.message }`,
             severity: 'error'
           }
         } );
