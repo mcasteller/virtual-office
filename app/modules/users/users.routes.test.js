@@ -128,9 +128,9 @@ describe( '/api/users/', function () {
         address: updatedUser.address
       } )
       .end( ( err, res ) => {
-        const { lastName, phone, address } = res.body;
+        const { firstName, lastName, phone, address } = res.body;
 
-        // expect( firstName ).to.equal( updatedUser.firstName );
+        expect( firstName ).to.equal( updatedUser.firstName );
         expect( lastName ).to.equal( updatedUser.lastName );
         expect( phone ).to.equal( updatedUser.phone );
         expect( address ).to.equal( updatedUser.address );

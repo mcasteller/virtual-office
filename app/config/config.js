@@ -12,7 +12,6 @@ const initGlobalConfig = function () {
     path.join( process.cwd(), '/config/env/default' )
   );
 
-  console.log( 'config', process.cwd(), '/config/env/', process.env.NODE_ENV )
   // Get the current config
   const environmentConfig = require(
     path.join( process.cwd(), '/config/env/', process.env.NODE_ENV )

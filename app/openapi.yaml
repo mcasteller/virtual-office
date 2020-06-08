@@ -9,9 +9,16 @@ servers:
   - url: /api
     description: Local development server
 paths:
+  /auth/google:
+    $ref: 'modules/auth/auth.yaml#/auth-google'  
+  /auth/google/callback:
+    $ref: 'modules/auth/auth.yaml#/auth-google-callback'
   /users:
-    $ref: '../modules/users/users.yaml#/users'
-  # securitySchemes:
+    $ref: 'modules/users/users.yaml#/users'
+  /users/credentials:
+    $ref: 'modules/users/users.yaml#/users-credentials'
+   
+    # securitySchemes:
     # ApiKeyAuth:
     #   type: apiKey
     #   in: header

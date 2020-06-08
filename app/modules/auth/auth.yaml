@@ -1,0 +1,76 @@
+auth-google:
+  get:
+    summary: Redirects user to google.com for authentication.
+    operationId: auth-google
+    
+    responses:
+      '302':
+        description: Redirects to auth provider login page
+          
+auth-google-callback:
+  get:
+    summary: Process and retrieve user data after authentication success.
+    operationId: auth-google-callback
+    parameters:
+      - name: code
+        in: query
+        schema:
+          type: string
+      - name: scope
+        in: query
+        schema:
+          type: string
+        allowReserved: true
+      - name: authuser
+        in: query
+        schema:
+          type: string
+      - name: prompt
+        in: query
+        schema:
+          type: string
+      
+    responses:
+      '302':
+        description: Redirects to /dashboard and set jwt cookie on response
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      '500':
+        description: User information retrieved from auth provider is incomplete or missing
+        content:
+          text/plain:
+            schema:
+              type: string
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        roles: 
+          type: array
+          items:
+            type: string
+            enum: [admin, user]
+
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+

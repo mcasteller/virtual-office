@@ -6,7 +6,7 @@ const errorRoutes = require( './error-routes.js' );
 const usersRouter = require( '../modules/users/users.routes' );
 const authRouter = require( '../modules/auth/auth.routes' );
 
-const apiSpec = path.join( __dirname, '../config/openapi.yaml' );
+const apiSpec = path.join( __dirname, '../openapi.yaml' );
 
 /**
  * Initialize application routes
@@ -26,13 +26,13 @@ module.exports.initialize = async function ( app ) {
       authRouter( app );
 
       // Handles any requests that don't match the ones above
-      app.get( '/*', function ( req, res, next ) {
+      app.get( '*', function ( req, res, next ) {
         res.sendFile( path.join( __dirname, '../public', 'index.html' ) );
       } );
 
       errorRoutes.initialize( app );
     } )
     .catch( e => {
-      logger.error( `User Routes initialization: ${ e }` )
+      logger.error( `Error on user routes initialization: ${ e }` )
     } )
 }

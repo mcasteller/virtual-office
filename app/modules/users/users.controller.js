@@ -27,16 +27,23 @@ function getCredentials ( req, res, next ) {
 
 async function update ( req, res, next ) {
 
-  const params = _.pick( req.body, whitelistedFields );
+  const user = await User.findOne(
+    { _id: req.user._id },
+    whitelistedFields.join( ' ' )
+  );
 
-  const user = await User.findOne( { _id: req.user._id } );
-
-  user.firstName = req.body.firstName;
-  user.lastName = req.body.lastName;
-  user.address = req.body.address;
-  user.phone = req.body.phone;
-
-  console.log('user', user)
+  if ( req.body.firstName ) {
+    user.firstName = req.body.firstName;
+  }
+  if ( req.body.lastName ) {
+    user.lastName = req.body.lastName;
+  }
+  if ( req.body.address ) {
+    user.address = req.body.address;
+  }
+  if ( req.body.phone ) {
+    user.phone = req.body.phone;
+  }
 
   await user.save();
 

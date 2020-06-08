@@ -1,4 +1,23 @@
 users:
+  get:
+    summary: Get user profile information.
+    operationId: users-get
+    responses:
+      '200':
+        description: Retrieves user profile
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      '401':
+        description: Unauthorized. User is not authorized to access the requested resource.
+      '500':
+        description: User information retrieved from auth provider is incomplete or missing
+        content:
+          text/plain:
+            schema:
+              type: string
+
   post:
     summary: Update an existing user profile.
     operationId: updateUser
@@ -17,14 +36,38 @@ users:
           application/json:
             schema:
               $ref: '#/components/schemas/User'
-      '400':
-        description: Request property validation error.
       '401':
-        description: JWT provided is NOT valid.
-      '404':
-        description: A user with the specified ID was not found.
-      default:
-        description: Unexpected error
+        description: Unauthorized. User is not authorized to access the requested resource.        
+
+users-credentials:
+  get:
+    summary: Get user basic credentials information.
+    operationId: users-credentials
+      
+    responses:
+      '200':
+        description: Retrieves user credentials
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                isAdmin: 
+                  type: boolean
+      '401':
+        description: Unauthorized. User is not authorized to access the requested resource.                        
+      '500':
+        description: User information retrieved from auth provider is incomplete or missing
+        content:
+          text/plain:
+            schema:
+              type: string
 
 components:
   schemas:
@@ -39,8 +82,6 @@ components:
           type: string
         phone: 
           type: number
-      required:
-        - firstName
     
     Error:
       required:
