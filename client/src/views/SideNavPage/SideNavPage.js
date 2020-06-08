@@ -82,8 +82,6 @@ export default function SideNavPage ( props ) {
       >
         {user ? (
           <SideNav
-            open={props.open}
-            closeHandler={props.toggleDrawer}
             adminMenuItems={adminMenuItems}
             menuItems={menuItems}
           />
@@ -102,6 +100,4 @@ export default function SideNavPage ( props ) {
 
 SideNavPage.propTypes = {
   children: PropTypes.element.isRequired,
-  open: PropTypes.bool.isRequired,
-  toggleDrawer: PropTypes.func.isRequired
 }

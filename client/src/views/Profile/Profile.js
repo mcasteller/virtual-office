@@ -1,9 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-// import Button from '@material-ui/core/CardContent';
 import {
   List,
   ListItem,
@@ -14,7 +12,6 @@ import IconButton from '@material-ui/core/IconButton';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 
 import { Context } from '../../context/UserProfileProvider/store'
-import { Context as GlobalContext } from '../../context/AppProvider/store'
 import ProfileDialog from './ProfileDialog';
 import AlertMessage from '../../components/AlertMessage/AlertMessage';
 
@@ -66,18 +63,8 @@ function Profile ( props ) {
   const [ state, actions ] = useContext( Context );
 
   useEffect( () => {
-    console.log( 'useeffect' )
     actions.getUserProfile();
   }, [] )
-
-  // const [ globalState, globalActions ] = useContext( GlobalContext );
-
-  // if ( state.alert ) {
-  //   globalActions.alert( state.alert )
-
-  //   // We need to clear the alert
-  //   actions.clearAlert();
-  // }
 
   // Variables
   const personFields = [

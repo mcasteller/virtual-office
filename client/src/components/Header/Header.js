@@ -1,15 +1,11 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
-import { HeaderProvider } from '../../context/HeaderProvider/store';
 import ProfileMenu from '../ProfileMenu/ProfileMenu';
-import { Context } from '../../context/AppProvider/store';
 
 const useStyles = makeStyles( ( theme ) => ( {
   root: {
@@ -34,38 +30,25 @@ const useStyles = makeStyles( ( theme ) => ( {
 } ) );
 
 export default function Header ( props ) {
-  // styles
-  const theme = useTheme();
-  const isDownXsBreak = useMediaQuery( theme.breakpoints.down( 'xs' ) );
-
   // Hooks
   const classes = useStyles();
 
-  const [ state, actions ] = useContext( Context );
-
-  const user = state.user;
-
   return (
-    <HeaderProvider>
-      <AppBar
-        position="relative"
-        classes={{
-          root: classes.appBar
-        }}>
-        <Container
-          className={classes.innerContainer}
-          maxWidth="lg"
-        >
-          <Typography variant="h6" className={classes.title}>
+    <AppBar
+      position="relative"
+      classes={{
+        root: classes.appBar
+      }}>
+      <Container
+        className={classes.innerContainer}
+        maxWidth="lg"
+      >
+        <Typography variant="h6" className={classes.title}>
               Virtual Office
-          </Typography>
-          <ProfileMenu />
-        </Container>
-      </AppBar>
-    </HeaderProvider>
+        </Typography>
+        <ProfileMenu />
+      </Container>
+    </AppBar>
   );
 }
 
-Header.propTypes = {
-  menuClick: PropTypes.func.isRequired
-}

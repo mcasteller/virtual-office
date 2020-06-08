@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { createActions } from './actions';
 
 const initialState = {
-  user: ''
+  user: {}
 };
 
 const Context = createContext( initialState );

@@ -12,7 +12,6 @@ import Profile from './views/Profile/Profile';
 import AuthenticatedContent from './components/AuthenticatedContent/AuthenticatedContent.js';
 
 import { AppProvider } from './context/AppProvider/store';
-import { Context } from './context/AppProvider/store';
 import { UserProfileProvider } from './context/UserProfileProvider/store';
 import SideNavPage from './views/SideNavPage/SideNavPage';
 //const env = process.env.NODE_ENV || 'development';

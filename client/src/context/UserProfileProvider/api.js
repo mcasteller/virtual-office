@@ -5,8 +5,15 @@ export function getUserProfile () {
     .then( response => response.json() )
 }
 
-export function updateUserProfile () {
-  return fetch( '/api/users', { method: 'POST' } )
+export function updateUserProfile ( data ) {
+  return fetch( '/api/users', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify( data )
+  } )
     .then( _handleErrors )
     .then( response => response.json() )
 }

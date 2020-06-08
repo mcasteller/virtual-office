@@ -3,16 +3,15 @@ import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import _ from 'lodash';
-import { makeStyles } from '@material-ui/core/styles';
 
+import { makeStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
-import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+
 import { TextInput } from '../../components/FormField/FormField';
-import { Button } from '@material-ui/core';
 
 function ProfileDialog ( props ) {
 
@@ -39,8 +38,13 @@ function ProfileDialog ( props ) {
   }
 
   function onSubmit ( values, { setSubmitting } ) {
-    // TODO: add submit logic
-    const data = _.pick( values, [ 'firstName', 'lastName', 'address', 'phone', 'birthDate' ] );
+    const data = _.pick( values, [
+      'firstName',
+      'lastName',
+      'address',
+      'phone',
+      'birthDate'
+    ] );
 
     props.updateUser( data );
 
@@ -64,7 +68,10 @@ function ProfileDialog ( props ) {
             birthday: props.user.birthday
           }}
           validationSchema={Yup.object( {
-            name: Yup.string()
+            firstName: Yup.string()
+              .max( 20, 'Must be 20 characters or less' )
+              .required( 'Required' ),
+            lastName: Yup.string()
               .max( 20, 'Must be 20 characters or less' )
               .required( 'Required' ),
             phone: Yup.number()
@@ -118,7 +125,7 @@ function ProfileDialog ( props ) {
 }
 
 ProfileDialog.propTypes = {
-  user: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   updateUser: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   setOpen: PropTypes.func.isRequired

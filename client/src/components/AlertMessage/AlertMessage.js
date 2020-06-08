@@ -55,6 +55,6 @@ export default function AlertMessage ( props ) {
 }
 
 AlertMessage.propTypes = {
-  alert: PropTypes.object.isRequired
+  alert: PropTypes.object
 }
 

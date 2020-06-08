@@ -8,6 +8,10 @@ const reducer = ( state, action ) => {
     return { ...state, user: action.user, alert: action.alert }
   case constants.GET_USER_PROFILE_FAILURE:
     return { ...state, alert: action.alert }
+  case constants.UPDATE_USER_PROFILE_SUCCESS:
+    return { ...state, user: action.user, alert: action.alert }
+  case constants.UPDATE_USER_PROFILE_FAILURE:
+    return { ...state, alert: action.alert }
   case constants.LOGOUT_SUCCESS:
     return { ...state, user: undefined, alert: action.alert }
   case constants.LOGOUT_FAILURE:

@@ -1,11 +1,12 @@
 import * as api from './api';
-import history from '../../history';
 
 // Constants
 export const constants = {
   GET_MESSAGE_SUCCESS: 'GET_MESSAGE.SUCCESS',
   GET_USER_PROFILE_SUCCESS: 'GET_USER_PROFILE_SUCCESS',
   GET_USER_PROFILE_FAILURE: 'GET_USER_PROFILE_FAILURE',
+  UPDATE_USER_PROFILE_SUCCESS: 'UPDATE_USER_PROFILE_SUCCESS',
+  UPDATE_USER_PROFILE_FAILURE: 'UPDATE_USER_PROFILE_FAILURE',
   LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
   LOGOUT_FAILURE: 'LOGOUT_FAILURE',
   ALERT: 'ALERT',
@@ -25,17 +26,13 @@ export function createActions ( dispatch ) {
 
         dispatch( {
           type: constants.GET_USER_PROFILE_SUCCESS,
-          user,
-          alert: {
-            message: 'Retrieving user profile',
-            severity: 'success'
-          }
+          user
         } );
       } catch ( err ) {
         dispatch( {
           type: constants.GET_USER_PROFILE_FAILURE,
           alert: {
-            message: `Error retrieving user profile: ${ err.message }`,
+            message: `Error retrieving user profile - ${ err.message }`,
             severity: 'error'
           }
         } );
@@ -46,9 +43,9 @@ export function createActions ( dispatch ) {
         type: constants.CLEAR_ALERT
       } );
     },
-    updateUserProfile: async () => {
+    updateUserProfile: async ( data ) => {
       try {
-        const user = await api.updateUserProfile();
+        const user = await api.updateUserProfile( data );
 
         localStorage.setItem( "user", JSON.stringify( user ) );
 
@@ -60,11 +57,11 @@ export function createActions ( dispatch ) {
             severity: 'success'
           }
         } );
-      } catch ( e ) {
+      } catch ( err ) {
         dispatch( {
           type: constants.UPDATE_USER_PROFILE_FAILURE,
           alert: {
-            message: 'Error updating user profile',
+            message: `Error updating user profile - ${ err }`,
             severity: 'error'
           }
         } );
