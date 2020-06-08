@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Header from '../../components/Header/Header';
@@ -14,8 +14,7 @@ export default function Page ( props ) {
   const useStyles =  makeStyles( ( theme ) => ( {
     content: {
       flex: '1 0 auto',
-      padding: theme.spacing( 3, 0 ),
-      backgroundColor: theme.palette.grey[ 100 ]
+      padding: theme.spacing( 0 )
     }
   } ) )
 
@@ -24,11 +23,14 @@ export default function Page ( props ) {
   return (
     <>
       <Header />
-      <Box className={classes.content}>
+      <Container
+        className={classes.content}
+        maxWidth="lg"
+      >
         <ErrorBoundary>
           {props.children}
         </ErrorBoundary>
-      </Box>
+      </Container>
       <Footer />
     </>
   );
