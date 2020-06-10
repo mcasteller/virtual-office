@@ -95,7 +95,8 @@ const strategy = ( demo ) => {
         providerId: profile.id,
         email: profile.emails.length ? _.first( profile.emails ).value : '',
         firstName: profile.name.givenName,
-        lastName: profile.name.familyName
+        lastName: profile.name.familyName,
+        profileImageURL: profile.photos ? _.first( profile.photos ).value : ''
       } )
 
       return user;

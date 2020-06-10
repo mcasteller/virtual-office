@@ -53,11 +53,11 @@ function ServiceValues ( props ) {
             <div className={classes.item}>
               <img
                 className={classes.image}
-                src="/static/themes/onepirate/productValues1.svg"
-                alt="suitcase"
+                src="/icons/speaker.svg"
+                alt="communication"
               />
               <Typography variant="h6" className={classes.title}>
-                The best luxury hotels
+                Communication
               </Typography>
               <Typography variant="h5">
                 {'From the latest trendy boutique hotel to the iconic palace with XXL pool'}
@@ -69,8 +69,8 @@ function ServiceValues ( props ) {
             <div className={classes.item}>
               <img
                 className={classes.image}
-                src="/static/themes/onepirate/productValues2.svg"
-                alt="graph"
+                src="/icons/best.svg"
+                alt="great user experience"
               />
               <Typography variant="h6" className={classes.title}>
                 New experiences
@@ -85,11 +85,11 @@ function ServiceValues ( props ) {
             <div className={classes.item}>
               <img
                 className={classes.image}
-                src="/static/themes/onepirate/productValues3.svg"
-                alt="clock"
+                src="/icons/team.svg"
+                alt="team work"
               />
               <Typography variant="h6" className={classes.title}>
-                Exclusive rates
+                Team work
               </Typography>
               <Typography variant="h5">
                 {'By registering, you will access specially negotiated rates '}

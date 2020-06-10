@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles( ( theme ) => ( {
   root: {
@@ -34,13 +35,15 @@ function FAQ ( props ) {
     <Container className={classes.root} component="section">
       <Button className={classes.button}>
         <Typography variant="h4" component="span">
-          Got any questions? Need help?
+          <Link to="/faq">
+            Got any questions? Need help?
+          </Link>
         </Typography>
       </Button>
       <Typography variant="subtitle1" className={classes.link}>
         We are here to help. Get in touch!
       </Typography>
-      <img src="/static/themes/onepirate/producBuoy.svg" className={classes.buoy} alt="buoy" />
+      <img src="/icons/businessman.svg" className={classes.buoy} alt="buoy" />
     </Container>
   );
 }

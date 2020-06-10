@@ -1,17 +1,17 @@
 import React, { useContext } from 'react';
 import _ from 'lodash';
-import { withStyles, useTheme } from '@material-ui/core/styles';
+import { withStyles, useTheme, makeStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
+import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import AppsIcon from '@material-ui/icons/Apps';
+import Hidden from '@material-ui/core/Hidden';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -61,13 +61,29 @@ const StyledListItem = withStyles( ( theme ) => ( {
   }
 } ) )( ListItem );
 
-const StyledAvatar = withStyles( ( theme ) => ( {
-  root: {
-    margin: '0 auto'
+// styles
+const useStyles = makeStyles( ( theme ) => ( {
+  button: {
+    height: '50px',
+    color: theme.palette.grey[ 1000 ],
+    margin: theme.spacing( 0.3, 0 ),
+    textTransform: 'initial',
+    '& span > *': {
+      margin: theme.spacing( 0.1, 1 )
+    }
+  },
+  listItem: {
+    '& .MuiAvatar-root': {
+      margin: theme.spacing( 0, 'auto' )
+    }
   }
-} ) )( Avatar );
+} ) );
 
 export default function ProfileMenu () {
+
+  // Hooks
+  const classes = useStyles();
+
   const [ state, actions ] = useContext( Context );
 
   const user = state.user;
@@ -91,17 +107,17 @@ export default function ProfileMenu () {
   const userItems = [
     {
       icon: <DashboardIcon fontSize="small" />,
-      body: <ListItemText primary="Dashboard" />,
+      body: <ListItemText primary="Mis Tareas" />,
       to: '/dashboard'
     },
     {
       icon: <SettingsIcon fontSize="small" />,
-      body: <ListItemText primary="User settings" />,
+      body: <ListItemText primary="Configuracion de cuenta" />,
       to: '/settings/account'
     },
     {
       icon: <ExitToAppIcon fontSize="small" />,
-      body: <ListItemText primary="Logout" />,
+      body: <ListItemText primary="Salir" />,
       onClick: logout
     }
   ]
@@ -118,9 +134,9 @@ export default function ProfileMenu () {
     return (
       <StyledListItem alignItems="flex-start">
         {user ?
-          <ListItemAvatar>
-            <StyledAvatar>{_.first( user.displayName )}</StyledAvatar>
-          </ListItemAvatar>
+          <Typography variant="h5">
+            Hola {user.firstName}
+          </Typography>
           :
           <ListItemIcon>
             <AccountCircleIcon fontSize="large"/>
@@ -129,8 +145,8 @@ export default function ProfileMenu () {
         <ListItemText
           primary={user ? user.displayName : "Not signed in" }
           secondary={
-            user ? ' — Navigate through options below'
-              : ' — Please choose sign in option below'
+            user ? ' — Elige una de las siguientes opciones'
+              : ' — Por favor elija una opcion para ingresar'
           } />
       </StyledListItem>
     )
@@ -157,15 +173,25 @@ export default function ProfileMenu () {
 
   return (
     <div>
-      <IconButton
-        aria-controls="customized-menu"
-        aria-haspopup="true"
-        color="inherit"
+      <Button
+        className={classes.button}
+        variant="outlined"
+        color="error"
         onClick={handleClick}
+        aria-haspopup="true"
         aria-label="toggle user account menu"
       >
-        <AppsIcon />
-      </IconButton>
+        {user ?
+          <>
+            <Hidden smDown>
+              {user.firstName}
+            </Hidden>
+            <Avatar alt={user.displayName} src={user.profileImageURL} />
+          </>
+          :
+          'Registrarse'
+        }
+      </Button>
       <StyledMenu
         id="customized-menu"
         anchorEl={anchorEl}

@@ -1,4 +1,3 @@
-const _ = require( 'lodash' );
 const { logger } = require( '../../lib/logger' );
 const User = require( './users.model' );
 
@@ -19,7 +18,8 @@ function getCredentials ( req, res, next ) {
     firstName: req.user.firstName,
     lastName: req.user.lastName,
     email: req.user.email,
-    isAdmin: req.user.isAdmin
+    isAdmin: req.user.isAdmin,
+    profileImageURL: req.user.profileImageURL
   }
 
   res.json( user )

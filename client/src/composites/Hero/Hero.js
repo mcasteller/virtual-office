@@ -74,7 +74,7 @@ function Hero () {
           src="/img/max/1280/pen-1215435_1280.jpg"
           alt="increase priority"/>
         <Typography color="inherit" align="center" variant="h3" marked="center">
-          Professional Services
+          Virtual Office
         </Typography>
         <Typography color="inherit" align="center" variant="h5" className={classes.h5}>
           Enjoy secret offers up to -70% off the best luxury hotels every Sunday.
@@ -93,13 +93,13 @@ function Hero () {
           Discover the experience
         </Typography>
         <div className={classes.backdrop} />
-        <img
+        {/* <img
           className={classes.arrowDown}
           src="/static/themes/onepirate/productHeroArrowDown.png"
           height="16"
           width="12"
           alt="arrow down"
-        />
+        /> */}
       </Container>
     </section>
   );

@@ -71,8 +71,8 @@ function HowItWorks ( props ) {
               <div className={classes.item}>
                 <div className={classes.number}>1.</div>
                 <img
-                  src="/static/themes/onepirate/productHowItWorks1.svg"
-                  alt="suitcase"
+                  src="/icons/interview.svg"
+                  alt="interview"
                   className={classes.image}
                 />
                 <Typography variant="h5" align="center">
@@ -84,8 +84,8 @@ function HowItWorks ( props ) {
               <div className={classes.item}>
                 <div className={classes.number}>2.</div>
                 <img
-                  src="/static/themes/onepirate/productHowItWorks2.svg"
-                  alt="graph"
+                  src="/icons/pay.svg"
+                  alt="pay for service"
                   className={classes.image}
                 />
                 <Typography variant="h5" align="center">
@@ -97,8 +97,8 @@ function HowItWorks ( props ) {
               <div className={classes.item}>
                 <div className={classes.number}>3.</div>
                 <img
-                  src="/static/themes/onepirate/productHowItWorks3.svg"
-                  alt="clock"
+                  src="/icons/contract.svg"
+                  alt="generate contract"
                   className={classes.image}
                 />
                 <Typography variant="h5" align="center">

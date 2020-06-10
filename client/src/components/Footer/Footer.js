@@ -4,14 +4,28 @@ import { makeStyles } from '@material-ui/core/styles';
 
 function Copyright () {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+    <>
+      <Typography variant="body2" color="textSecondary" align="left">
+        {'Copyright © '}
+        <Link color="inherit" href="https://material-ui.com/">
         Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+      <Grid item>
+        <Typography variant="caption">
+          {'Icons made by '}
+          <Link href="https://www.flaticon.com/authors/monkik" rel="sponsored" title="Freepik">
+            monkik
+          </Link>
+          {' from '}
+          <Link href="https://www.flaticon.com" rel="sponsored" title="Flaticon">
+            www.flaticon.com
+          </Link>
+        </Typography>
+      </Grid>
+    </>
   );
 }
 

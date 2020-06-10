@@ -11,6 +11,8 @@ import Home from './views/Home/Home';
 import Person from './views/Person/Person';
 import Profile from './views/Profile/Profile';
 import SideNavPage from './views/SideNavPage/SideNavPage';
+import FAQ from './views/FAQ/FAQ';
+import Contact from './views/Contact/Contact';
 
 import AuthenticatedContent from './components/AuthenticatedContent/AuthenticatedContent.js';
 
@@ -29,6 +31,8 @@ export default function App () {
           <BaseLayout>
             <Switch>
               <Route path="/" component={Home} exact/>
+              <Route path="/faq" component={FAQ} />
+              <Route path="/contact" component={Contact} />
               <Route path="/error" component={Error} />
               <AuthenticatedContent>
                 <Route path="/settings/account">
