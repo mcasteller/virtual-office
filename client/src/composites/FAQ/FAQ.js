@@ -23,7 +23,7 @@ const useStyles = makeStyles( ( theme ) => ( {
     marginTop: theme.spacing( 3 ),
     marginBottom: theme.spacing( 3 )
   },
-  buoy: {
+  icon: {
     width: 60
   }
 } ) );
@@ -33,17 +33,18 @@ function FAQ ( props ) {
 
   return (
     <Container className={classes.root} component="section">
-      <Button className={classes.button}>
+      <Link
+        className={classes.button}
+        to="/faq"
+      >
         <Typography variant="h4" component="span">
-          <Link to="/faq">
-            Got any questions? Need help?
-          </Link>
+            Preguntas frecuentes
         </Typography>
-      </Button>
+      </Link>
       <Typography variant="subtitle1" className={classes.link}>
-        We are here to help. Get in touch!
+        Recuerde que estamos siempre a su disposicion.
       </Typography>
-      <img src="/icons/businessman.svg" className={classes.buoy} alt="buoy" />
+      <img src="/icons/businessman.svg" className={classes.icon} alt="icon help" />
     </Container>
   );
 }

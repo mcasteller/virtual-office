@@ -13,8 +13,7 @@ const useStyles = makeStyles( ( theme ) => ( {
     overflow: 'hidden'
   },
   container: {
-    marginTop: theme.spacing( 10 ),
-    marginBottom: theme.spacing( 15 ),
+    margin: theme.spacing( 10, 0 ),
     position: 'relative',
     display: 'flex',
     flexDirection: 'column',
@@ -27,12 +26,12 @@ const useStyles = makeStyles( ( theme ) => ( {
     padding: theme.spacing( 0, 5 )
   },
   title: {
-    marginBottom: theme.spacing( 14 )
+    marginBottom: theme.spacing( 12 )
   },
   number: {
     fontSize: 24,
     fontFamily: theme.typography.fontFamily,
-    color: theme.palette.secondary.main,
+    color: theme.palette.secondary.dark,
     fontWeight: theme.typography.fontWeightMedium
   },
   image: {
@@ -47,7 +46,8 @@ const useStyles = makeStyles( ( theme ) => ( {
     opacity: 0.7
   },
   button: {
-    marginTop: theme.spacing( 8 )
+    marginTop: theme.spacing( 12 ),
+    minWidth: '200px'
   }
 } ) );
 
@@ -63,11 +63,11 @@ function HowItWorks ( props ) {
           alt="curvy lines"
         />
         <Typography variant="h4" marked="center" className={classes.title} component="h2">
-          How it works
+          Como funciona
         </Typography>
         <div>
           <Grid container spacing={5}>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={3}>
               <div className={classes.item}>
                 <div className={classes.number}>1.</div>
                 <img
@@ -76,11 +76,11 @@ function HowItWorks ( props ) {
                   className={classes.image}
                 />
                 <Typography variant="h5" align="center">
-                  Appointment every Wednesday 9am.
+                  Agendamos un encuentro virtual.
                 </Typography>
               </div>
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={3}>
               <div className={classes.item}>
                 <div className={classes.number}>2.</div>
                 <img
@@ -89,21 +89,33 @@ function HowItWorks ( props ) {
                   className={classes.image}
                 />
                 <Typography variant="h5" align="center">
-                  First come, first served. Our offers are in limited quantities, so be quick.
+                  Se efectua el pago en funcion de los servicios solicitados.
                 </Typography>
               </div>
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={3}>
               <div className={classes.item}>
                 <div className={classes.number}>3.</div>
+                <img
+                  src="/icons/team.svg"
+                  alt="team process request"
+                  className={classes.image}
+                />
+                <Typography variant="h5" align="center">
+                  Nuestro equipo procesa las tareas.
+                </Typography>
+              </div>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <div className={classes.item}>
+                <div className={classes.number}>4.</div>
                 <img
                   src="/icons/contract.svg"
                   alt="generate contract"
                   className={classes.image}
                 />
                 <Typography variant="h5" align="center">
-                  {'New offers every week. New experiences, new surprises. '}
-                  {'Your Sundays will no longer be alike.'}
+                  Se efectua la entrega de la documentacion.
                 </Typography>
               </div>
             </Grid>
@@ -117,7 +129,7 @@ function HowItWorks ( props ) {
           component="a"
           href="/premium-themes/onepirate/sign-up/"
         >
-          Get started
+          Comenzar
         </Button>
       </Container>
     </section>

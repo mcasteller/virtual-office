@@ -19,25 +19,14 @@ const useStyles = makeStyles( ( theme ) => ( {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: theme.palette.warning.main,
+    backgroundColor: theme.palette.warning.light,
     padding: theme.spacing( 8, 3 )
   },
   imagesWrapper: {
     position: 'relative'
   },
-  imageDots: {
-    position: 'absolute',
-    top: -67,
-    left: -67,
-    right: 0,
-    bottom: 0,
-    width: '100%',
-    background: 'url(/static/onepirate/productCTAImageDots.png)'
-  },
   image: {
     position: 'absolute',
-    top: -28,
-    left: -28,
     right: 0,
     bottom: 0,
     width: '100%',
@@ -59,8 +48,8 @@ function CTALayout ( props ) {
         <Grid item xs={12} md={6} className={classes.imagesWrapper}>
           <Hidden smDown>
             <img
-              src="https://images.unsplash.com/photo-1527853787696-f7be74f2e39a?auto=format&fit=crop&w=750&q=80"
-              alt="call to action"
+              src="/img/contact.jpg"
+              alt="contact us"
               className={classes.image}
             />
           </Hidden>

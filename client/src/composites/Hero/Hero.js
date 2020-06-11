@@ -4,6 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from "@material-ui/core/Container";
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
+
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 const useStyles = makeStyles( ( theme ) => ( {
   section: {
@@ -11,12 +14,8 @@ const useStyles = makeStyles( ( theme ) => ( {
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
-    overflow: 'hidden',
-    [ theme.breakpoints.up( 'sm' ) ]: {
-      height: '80vh',
-      minHeight: 500,
-      maxHeight: 1300
-    }
+    overflow: 'visible',
+    height: '100vh'
   },
   backdrop: {
     position: 'absolute',
@@ -30,6 +29,7 @@ const useStyles = makeStyles( ( theme ) => ( {
   },
   image: {
     width: '100%',
+    opacity: '0.5',
     position: 'absolute',
     top: '0',
     zIndex: -2
@@ -44,15 +44,21 @@ const useStyles = makeStyles( ( theme ) => ( {
       marginTop: theme.spacing( 10 )
     }
   },
-  heroContent: {
-    marginTop: theme.spacing( 3 ),
-    marginBottom: theme.spacing( 14 ),
+  container: {
+    margin: theme.spacing( 5, 0 ),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
   },
   more: {
     marginTop: theme.spacing( 2 )
+  },
+  textSeparator: {
+    padding: '10vh',
+    '& .MuiSvgIcon-root': {
+      width: '100%',
+      fontSize: '35px'
+    }
   }
 } ) );
 
@@ -62,22 +68,22 @@ function Hero () {
 
   return (
     <section className={classes.section}>
-      <Container className={classes.heroContent}>
+      <Container className={classes.container}>
         <img
           className={classes.image}
-          srcSet="/img/max/640/pen-1215435_640.jpg 640w,
-            /img/max/1280/pen-1215435_1280.jpg 1280w,
-            /img/max/1920/pen-1215435_1920.jpg 1920w"
+          srcSet="/img/t-background.png 640w,
+            /img/t-background.png 1280w,
+            /img/t-background.png 1920w"
           sizes="(max-width: 700px) 640px,
             1280px,
             (min-width: 1800px) 1920px"
-          src="/img/max/1280/pen-1215435_1280.jpg"
+          src="/img/t-background.png"
           alt="increase priority"/>
         <Typography color="inherit" align="center" variant="h3" marked="center">
-          Virtual Office
+          Oficina Virtual
         </Typography>
         <Typography color="inherit" align="center" variant="h5" className={classes.h5}>
-          Enjoy secret offers up to -70% off the best luxury hotels every Sunday.
+          Conectando profesionales y clientes los 365 dias del año.
         </Typography>
         <Button
           color="secondary"
@@ -87,19 +93,15 @@ function Hero () {
           component="a"
           href="/premium-themes/onepirate/sign-up/"
         >
-          Register
+          Ingreso
         </Button>
         <Typography variant="body2" color="inherit" className={classes.more}>
-          Discover the experience
+          Viva la experiencia
         </Typography>
-        <div className={classes.backdrop} />
-        {/* <img
-          className={classes.arrowDown}
-          src="/static/themes/onepirate/productHeroArrowDown.png"
-          height="16"
-          width="12"
-          alt="arrow down"
-        /> */}
+        {/* <div className={classes.backdrop} /> */}
+        <Box className={classes.textSeparator}>
+          <MoreHorizIcon />
+        </Box>
       </Container>
     </section>
   );
