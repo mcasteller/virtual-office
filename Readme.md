@@ -18,7 +18,7 @@ This is a web app designed to organize your professional activities. It has role
 - Formik + Yup to deal with client side form validation
 
 ## Screen capture
-![application main view screenshot](https://user-images.githubusercontent.com/5411855/81440346-86422f00-9135-11ea-8f15-474f80891db0.png)
+![application main view screenshot](https://user-images.githubusercontent.com/5411855/84413734-a783b880-abd6-11ea-8bc5-604b9328467e.png)
 
 
 ## Summary
