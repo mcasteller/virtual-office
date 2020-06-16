@@ -8,11 +8,13 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import BaseLayout from './layouts/BaseLayout/BaseLayout';
 import Error from './views/Error/Error';
 import Home from './views/Home/Home';
-import Person from './views/Person/Person';
+import Dashboard from './views/Dashboard/Dashboard';
 import Profile from './views/Profile/Profile';
 import SideNavPage from './views/SideNavPage/SideNavPage';
 import FAQ from './views/FAQ/FAQ';
 import Contact from './views/Contact/Contact';
+import Request from './views/Services/Request/Request';
+import Retrieve from './views/Services/Retrieve';
 
 import AuthenticatedContent from './components/AuthenticatedContent/AuthenticatedContent.js';
 
@@ -35,14 +37,18 @@ export default function App () {
               <Route path="/contact" component={Contact} />
               <Route path="/error" component={Error} />
               <AuthenticatedContent>
-                <Route path="/settings/account">
+                <Switch>
+                  <Route path="/service/add" component={Request}/>
                   <SideNavPage>
-                    <UserProfileProvider>
-                      <Profile />
-                    </UserProfileProvider>
+                    <Route path="/settings/account" >
+                      <UserProfileProvider>
+                        <Profile />
+                      </UserProfileProvider>
+                    </ Route>
+                    <Route path="/dashboard" component={Dashboard} />
+                    <Route path="/service/list" component={Retrieve} />
                   </SideNavPage>
-                </Route>
-                <Route path="/dashboard" component={Person} />
+                </Switch>
               </AuthenticatedContent>
             </Switch>
           </BaseLayout>

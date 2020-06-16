@@ -73,23 +73,26 @@ export default function SideNavPage ( props ) {
   ]
 
   return (
-    <Container
-      maxWidth="lg"
-    >
+    <Container>
       <Grid
         container
         spacing={5}
       >
-        {user ? (
-          <SideNav
-            adminMenuItems={adminMenuItems}
-            menuItems={menuItems}
-          />
-        ) : null }
+        {user ?
+          <Grid
+            item
+            xs={2}
+          >
+            <SideNav
+              adminMenuItems={adminMenuItems}
+              menuItems={menuItems}
+            />
+          </Grid>
+          : null }
         <Grid
           item
           xs={12}
-          sm={user ? 9 : 12}
+          sm={user ? 10 : 12}
         >
           {props.children}
         </Grid>

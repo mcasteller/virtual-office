@@ -32,11 +32,12 @@ export default function SideNav ( props ) {
           display: 'none'
         }
       },
-      '& .MuiDrawer-paper': {
-        position: 'relative',
-        border: 'none',
-        backgroundColor: theme.palette.grey[ 100 ]
-      }
+      '& .MuiPaper-root': {
+        position: 'relative'
+      },
+      position: 'relative',
+      border: 'none',
+      padding: theme.spacing( 4, 0 )
     }
   } ) );
 
@@ -95,27 +96,26 @@ export default function SideNav ( props ) {
   }
 
   return (
-    <Grid
-      className={classes.root}
-      item xs={3}
-    >
+    <>
       {user && isDownXsBreak ?
-        <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="primary"
-          onClick={setOpen}
-        >
-          <AddCircleIcon
-            fontSize="large"
-            aria-label="toggle main menu"
-            aria-haspopup="menu"
+        (
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="primary"
+            onClick={setOpen}
           >
+            <AddCircleIcon
+              fontSize="large"
+              aria-label="toggle main menu"
+              aria-haspopup="menu"
+            >
                   Click to open menu
-          </AddCircleIcon>
-        </IconButton>
-        : null}
+            </AddCircleIcon>
+          </IconButton>
+        ) : null}
       <Drawer
+        className={classes.root}
         variant={isDownXsBreak ? 'temporary' : 'persistent'}
         anchor="left"
         open={open || !isDownXsBreak}
@@ -132,7 +132,7 @@ export default function SideNav ( props ) {
           }
         </List>
       </Drawer>
-    </Grid>
+    </>
   )
 }
 

@@ -5,14 +5,40 @@ import Values from '../../composites/Values/Values';
 import HowItWorks from '../../composites/HowItWorks/HowItWorks';
 import CTA from '../../composites/CTA/CTA';
 import FAQ from '../../composites/FAQ/FAQ';
-import MediaCard from '../../composites/Card/MediaCard';
+import CardList from '../../composites/Card/CardList';
+
+const cardContent = [
+  {
+    title: 'Contratos',
+    description: 'Este texto es una description de uno de los servicios brindados por el equipo de trabajo',
+    image: '/img/legalCard-1.jpg',
+    buttonLink: '/servicios',
+    buttonLabel: 'Mas'
+  },
+  {
+    title: 'Contratos',
+    description: 'Este texto es una description de uno de los servicios brindados por el equipo de trabajo',
+    image: '/img/legalCard-2.jpg',
+    buttonLink: '/servicios',
+    buttonLabel: 'Mas'
+  },
+  {
+    title: 'Contratos',
+    description: 'Este texto es una description de uno de los servicios brindados por el equipo de trabajo',
+    image: '/img/legalCard-3.jpg',
+    buttonLink: '/servicios',
+    buttonLabel: 'Mas'
+  }
+]
 
 function Home () {
 
   return (
     <>
       <Hero />
-      <MediaCard />
+      <CardList
+        title="Nuestros Servicios"
+        cardContent={cardContent} />
       <HowItWorks />
       <CTA />
       <FAQ />

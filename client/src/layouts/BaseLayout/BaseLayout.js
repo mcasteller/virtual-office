@@ -13,8 +13,7 @@ export default function Page ( props ) {
   // Styles
   const useStyles =  makeStyles( ( theme ) => ( {
     content: {
-      flex: '1 0 auto',
-      padding: theme.spacing( 0 )
+      flex: '1 0 auto'
     }
   } ) )
 

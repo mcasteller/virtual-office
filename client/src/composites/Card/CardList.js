@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -16,7 +17,7 @@ import { Grid } from '@material-ui/core';
 const useStyles = makeStyles( theme => ( {
   root: {
     maxWidth: 345,
-    margin: theme.spacing( 0, 'auto' ),
+    margin: theme.spacing( 0, 'auto' )
   },
   container: {
     margin: theme.spacing( 10, 0 ),
@@ -36,50 +37,33 @@ const useStyles = makeStyles( theme => ( {
   }
 } ) );
 
-export default function MediaCard () {
+export default function CardList ( props ) {
   const classes = useStyles();
-
-  const cardContent = [
-    {
-      title: 'Contratos',
-      description: 'Este texto es una description de uno de los servicios brindados por el equipo de trabajo',
-      image: '/img/legalCard-1.jpg',
-      buttonLink: '/servicios',
-      buttonLabel: 'Mas'
-    },
-    {
-      title: 'Contratos',
-      description: 'Este texto es una description de uno de los servicios brindados por el equipo de trabajo',
-      image: '/img/legalCard-2.jpg',
-      buttonLink: '/servicios',
-      buttonLabel: 'Mas'
-    },
-    {
-      title: 'Contratos',
-      description: 'Este texto es una description de uno de los servicios brindados por el equipo de trabajo',
-      image: '/img/legalCard-3.jpg',
-      buttonLink: '/servicios',
-      buttonLabel: 'Mas'
-    }
-  ]
 
   return (
     <section
       className={classes.section}>
       <Container className={classes.container}>
-        <Typography variant="h4" marked="center" className={classes.title} component="h2">
-          Nuestros Servicios
+        {props.title &&
+        <Typography
+          className={classes.title}
+          variant="h4"
+          marked="center"
+          component="h2"
+        >
+          {props.title}
         </Typography>
+        }
         <Grid
           className={classes.grid}
           container
           justify="space-evenly"
         >
-          {cardContent.map( ( item ) => {
+          {props.cardContent.map( ( item ) => {
             return (
               <Grid
                 className={classes.gridItem}
-                item xs={12} sm={3} key={item.title}>
+                item xs={12} sm={props.sm || 4} key={item.title}>
                 <Card
                   className={classes.root}
                   key={item.title}>
@@ -113,4 +97,10 @@ export default function MediaCard () {
       </Container>
     </section>
   );
+}
+
+CardList.propTypes = {
+  title: PropTypes.string,
+  cardContent: PropTypes.array.isRequired,
+  sm: PropTypes.number
 }
