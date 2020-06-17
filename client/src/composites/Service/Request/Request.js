@@ -1,5 +1,6 @@
 import React from 'react';
-import clsx from 'clsx';
+import { Link } from "react-router-dom";
+
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -8,23 +9,9 @@ import StepContent from '@material-ui/core/StepContent';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Checkbox from '@material-ui/core/Checkbox';
-import Avatar from '@material-ui/core/Avatar';
-import Chip from '@material-ui/core/Chip';
 
-import DoneIcon from '@material-ui/icons/Done';
-import CategoryList from './CategoryList';
+import CategoryList from './Categories';
+import Category from './Category';
 
 const useStyles = makeStyles( ( theme ) => ( {
   root: {
@@ -49,30 +36,30 @@ function getSteps () {
   return [{
     label: 'Seleccionar servicio a solicitar',
     categories: [{
-      title: 'contratos',
+      title: 'Contratos',
       items: [{
         id: '',
-        title: 'contratos comerciales',
-        description: 'preparacion de contratos comerciales'
+        title: 'Contratos comerciales',
+        description: 'Preparacion de contratos comerciales'
       },
       {
         id: '',
-        title: 'registro publico',
-        description: 'confeccion de contratos en el registro publico'
+        title: 'Registro publico',
+        description: 'Confeccion de contratos en el registro publico'
       }
       ]
     },
     {
-      title: 'escritos',
+      title: 'Escritos',
       items: [{
         id: '',
-        title: 'comerciales',
-        description: 'escritos comerciales presentados oportunamente'
+        title: 'Comerciales',
+        description: 'Escritos comerciales presentados oportunamente'
       },
       {
         id: '',
-        title: 'presentacion notarial',
-        description: 'reparacion de escritos por convenio notarial'
+        title: 'Presentacion notarial',
+        description: 'Preparacion de escritos por convenio notarial'
       }
       ]
     }
@@ -86,32 +73,22 @@ function getSteps () {
   }];
 }
 
-function getStepContent ( step ) {
-  switch ( step ) {
-  case 0:
-    return `For each ad campaign that you create, you can control how much
-              you're willing to spend on clicks and conversions, which networks
-              and geographical locations you want your ads to show on, and more.`;
-  case 1:
-    return 'An ad group contains one or more ads which target a shared set of keywords.';
-  case 2:
-    return `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`;
-  default:
-    return 'Unknown step';
-  }
-}
-
 export default function ServiceRequest () {
   const classes = useStyles();
   const [ activeStep, setActiveStep ] = React.useState( 0 );
+
+  const [ category, setCategory ] = React.useState( 0 );
+
   const steps = getSteps();
 
-  const handleNext = () => {
+  const handleNext = ( item ) => {
     setActiveStep( ( prevActiveStep ) => prevActiveStep + 1 );
   };
+
+  const handleCategorySelected = ( category ) => {
+    setCategory( category );
+    handleNext();
+  }
 
   const handleBack = () => {
     setActiveStep( ( prevActiveStep ) => prevActiveStep - 1 );
@@ -131,9 +108,13 @@ export default function ServiceRequest () {
           <Step key={step.label}>
             <StepLabel>{step.label}</StepLabel>
             <StepContent>
-              {index === 0 && <CategoryList
+              {index === 0 &&
+              <CategoryList
                 categories={step.categories}
-                handleNext={() => handleNext( step.id )} />}
+                handleNext={( item ) => handleCategorySelected( item )}
+              />}
+              {index === 1 && <Category category={category} />}
+              {index !== 0 &&
               <div className={classes.actionsContainer}>
                 <div>
                   <Button
@@ -141,7 +122,7 @@ export default function ServiceRequest () {
                     onClick={handleBack}
                     className={classes.button}
                   >
-                    Back
+                    Anterior
                   </Button>
                   <Button
                     variant="contained"
@@ -149,19 +130,29 @@ export default function ServiceRequest () {
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                    {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
                   </Button>
                 </div>
-              </div>
+              </div>}
             </StepContent>
           </Step>
         ) )}
       </Stepper>
       {activeStep === steps.length && (
         <Paper square elevation={0} className={classes.resetContainer}>
-          <Typography>All steps completed - you&apos;re finished</Typography>
-          <Button onClick={handleReset} className={classes.button}>
-            Reset
+          <Typography>
+            La solicitud ha sido enviada con exito, puede revisarla en el listado de servicios contratados.
+          </Typography>
+          <Button
+            className={classes.button}
+            onClick={handleReset}
+            color="secondary"
+            variant="contained"
+            size="large"
+          >
+            <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+              Ver servicios contratados
+            </Link>
           </Button>
         </Paper>
       )}

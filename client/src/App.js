@@ -13,8 +13,8 @@ import Profile from './views/Profile/Profile';
 import SideNavPage from './views/SideNavPage/SideNavPage';
 import FAQ from './views/FAQ/FAQ';
 import Contact from './views/Contact/Contact';
-import Request from './views/Services/Request/Request';
-import Retrieve from './views/Services/Retrieve';
+// import Request from './views/Services/Request/Request';
+// import Retrieve from './views/Services/Retrieve';
 
 import AuthenticatedContent from './components/AuthenticatedContent/AuthenticatedContent.js';
 
@@ -38,7 +38,7 @@ export default function App () {
               <Route path="/error" component={Error} />
               <AuthenticatedContent>
                 <Switch>
-                  <Route path="/service/add" component={Request}/>
+                  {/* <Route path="/service/add" component={Request}/> */}
                   <SideNavPage>
                     <Route path="/settings/account" >
                       <UserProfileProvider>
@@ -46,7 +46,7 @@ export default function App () {
                       </UserProfileProvider>
                     </ Route>
                     <Route path="/dashboard" component={Dashboard} />
-                    <Route path="/service/list" component={Retrieve} />
+                    {/* <Route path="/service/list" component={Retrieve} /> */}
                   </SideNavPage>
                 </Switch>
               </AuthenticatedContent>

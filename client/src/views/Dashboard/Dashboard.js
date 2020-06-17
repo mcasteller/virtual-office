@@ -7,39 +7,12 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 
-import PhoneIcon from '@material-ui/icons/Phone';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
+import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
 
 import ServiceList from '../../composites/Service/List';
 import ServiceDetail from '../../composites/Service/Detail';
-import RequestService from '../Services/Request/Request';
-
-const serviceOffers = [
-  {
-    title: 'Generar solicitud de servicio',
-    description: 'Inicie el proceso de solicitud de servicios',
-    image: '/img/legalCard-1.jpg',
-    buttonLink: '/service/add',
-    buttonLabel: 'Solicitar'
-  },
-  {
-    title: 'Generar solicitud de tramites',
-    description: 'Inicie el proceso de solicitud de tramites',
-    image: '/img/legalCard-2.jpg',
-    buttonLink: '/service/add',
-    buttonLabel: 'Solicitar'
-  }
-]
-
-const currentServices = [
-  {
-    title: 'Consultar servicios contratados',
-    description: 'Consulte el estado de sus servicios ya contratados',
-    image: '/img/legalCard-3.jpg',
-    buttonLink: '/service/list',
-    buttonLabel: 'Consultar'
-  }
-]
+import ServiceRequest from '../../composites/Service/Request/Request';
 
 function TabPanel ( props ) {
   const { children, value, index, ...other } = props;
@@ -54,7 +27,7 @@ function TabPanel ( props ) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
@@ -63,6 +36,7 @@ function TabPanel ( props ) {
 
 function Dashboard () {
 
+  // styles
   const useStyles = makeStyles( ( theme ) => ( {
     '@global': {
       ul: {
@@ -106,25 +80,35 @@ function Dashboard () {
         paddingBottom: theme.spacing( 6 )
       }
     },
+    tab: {
+      backgroundColor: theme.palette.secondary.main
+    },
     tabPanel: {
       '& .MuiBox-root': {
         padding: theme.spacing( 0 )
       }
+    },
+    subtitle: {
+      padding: theme.spacing( 8, 0 )
     }
   } ) );
 
   const classes = useStyles();
 
-  // functions
+  // hooks
   const [ value, setValue ] = React.useState( 0 );
 
+  const [ open, setOpen ] = React.useState( false );
+
+  const [ service, setService ] = React.useState( {} )
+
+  // functions
   const handleChange = ( event, newValue ) => {
     setValue( newValue );
   };
 
-  const [ open, setOpen ] = React.useState( false );
-
-  const handleClickOpen = () => {
+  const handleClickOpen = ( event, data ) => {
+    setService( data );
     setOpen( true );
   };
 
@@ -132,89 +116,59 @@ function Dashboard () {
     setOpen( false );
   };
 
-  const handleClick = () => {
-    setOpen( true );
-  };
-
-  //TODO: work with tabs
-  // 1 for services and other for current hired ones
   return (
     <Container component="main" className={classes.container}>
-      <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+      <Typography component="h1" variant="h2" align="center" color="textPrimary">
         Bienvenido
       </Typography>
-      <Typography variant="h5" align="center" color="textSecondary" component="p">
+      <Typography
+        className={classes.subtitle}
+        variant="h5"
+        align="center"
+        color="textSecondary"
+        component="p"
+      >
         Elija una de las actividades descritas a continuacion:
       </Typography>
 
-      <Paper square className={classes.root}>
+      <Paper square>
         <Tabs
           value={value}
           onChange={handleChange}
           variant="fullWidth"
           indicatorColor="secondary"
-          textColor="secondary"
+          textColor="inherit"
           aria-label="icon label tabs example"
         >
-          <Tab icon={<FavoriteIcon />} label="SERVICIOS CONTRATADOS" />
-          <Tab icon={<PhoneIcon />} label="NUEVO SERVICIO" />
+          <Tab
+            className={classes.tab}
+            icon={<AssignmentOutlinedIcon />}
+            label="SERVICIOS CONTRATADOS"
+          />
+          <Tab
+            className={classes.tab}
+            icon={<AddCircleOutlineOutlinedIcon />}
+            label="NUEVO SERVICIO"
+          />
         </Tabs>
       </Paper>
       <TabPanel
         className={classes.tabPanel}
-        value={value} index={0}
+        value={value}
+        index={0}
       >
-        <ServiceList onElementClick={handleClick}/>
+        <ServiceList onElementClick={handleClickOpen}/>
         <ServiceDetail
+          data={service}
           open={open}
-          handleClickOpen={handleClickOpen}
           handleClose={handleClose}/>
       </TabPanel>
       <TabPanel
         className={classes.tabPanel}
         value={value} index={1}
       >
-        <RequestService />
+        <ServiceRequest />
       </TabPanel>
-
-      {/*
-      <CardList
-        sm={5}
-        cardContent={serviceOffers}/>
-
-      <Typography variant="h5" align="center" color="textSecondary" component="p">
-        O consulte el estado de los servicios y/o tramites en curso.
-      </Typography>
-
-      <CardList
-        sm={12}
-        cardContent={currentServices}/> */}
-
-      {/* <Grid item xs={12}>
-        <Typography variant="h6" className={classes.title}>
-            Tareas activas
-        </Typography>
-        <List dense='true'>
-          {generate(
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <FolderIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Single-line item"
-                secondary={'Secondary text'}
-              />
-              <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="delete">
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          )}
-        </List>
-      </Grid> */}
     </Container>
   );
 }

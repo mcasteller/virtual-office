@@ -32,7 +32,7 @@ function AuthenticatedContent ( props ) {
 }
 
 AuthenticatedContent.propTypes = {
-  children: PropTypes.array.isRequired
+  children: PropTypes.object.isRequired
 }
 
 export default AuthenticatedContent;

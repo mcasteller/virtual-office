@@ -176,7 +176,7 @@ export default function ProfileMenu () {
       <Button
         className={classes.button}
         variant="outlined"
-        color="error"
+        color="primary"
         onClick={handleClick}
         aria-haspopup="true"
         aria-label="toggle user account menu"

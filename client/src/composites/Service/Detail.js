@@ -39,7 +39,7 @@ export default function ServiceDetail ( props ) {
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              Sound
+              {props.data.name}
             </Typography>
             <Button autoFocus color="inherit" onClick={props.handleClose}>
               save
@@ -48,11 +48,7 @@ export default function ServiceDetail ( props ) {
         </AppBar>
         <List>
           <ListItem button>
-            <ListItemText primary="Phone ringtone" secondary="Titania" />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemText primary="Default notification ringtone" secondary="Tethys" />
+            <ListItemText primary={props.data.name} secondary={props.data.calories} />
           </ListItem>
         </List>
       </Dialog>

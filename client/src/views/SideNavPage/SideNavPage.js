@@ -102,5 +102,5 @@ export default function SideNavPage ( props ) {
 }
 
 SideNavPage.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.array.isRequired
 }
