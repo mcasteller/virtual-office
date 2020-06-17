@@ -11,7 +11,8 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 import CategoryList from './Categories';
-import Category from './Category';
+import Detail from './Detail';
+import Preview from './Preview';
 
 const useStyles = makeStyles( ( theme ) => ( {
   root: {
@@ -76,8 +77,8 @@ function getSteps () {
 export default function ServiceRequest () {
   const classes = useStyles();
   const [ activeStep, setActiveStep ] = React.useState( 0 );
-
-  const [ category, setCategory ] = React.useState( 0 );
+  const [ category, setCategory ] = React.useState( {} );
+  const [ detail, setDetail ] = React.useState( {} );
 
   const steps = getSteps();
 
@@ -87,6 +88,11 @@ export default function ServiceRequest () {
 
   const handleCategorySelected = ( category ) => {
     setCategory( category );
+    handleNext();
+  }
+
+  const handleRequestDetail = ( requestDetail ) => {
+    setDetail( requestDetail );
     handleNext();
   }
 
@@ -113,27 +119,39 @@ export default function ServiceRequest () {
                 categories={step.categories}
                 handleNext={( item ) => handleCategorySelected( item )}
               />}
-              {index === 1 && <Category category={category} />}
-              {index !== 0 &&
-              <div className={classes.actionsContainer}>
-                <div>
-                  <Button
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    className={classes.button}
-                  >
-                    Anterior
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
-                  </Button>
+              {index === 1 &&
+              <Detail
+                category={category}
+                handleNext={( data ) => handleRequestDetail( data )}
+                handleBack={handleBack}
+              />}
+              {index === 2 &&
+              <>
+                <Preview
+                  detail={detail}
+                  handleNext={( data ) => handleRequestDetail( data )}
+                  handleBack={handleBack}
+                />
+                <div className={classes.actionsContainer}>
+                  <div>
+                    <Button
+                      disabled={activeStep === 0}
+                      onClick={handleBack}
+                      className={classes.button}
+                    >
+                      Anterior
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleNext}
+                      className={classes.button}
+                    >
+                      {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
+                    </Button>
+                  </div>
                 </div>
-              </div>}
+              </>}
             </StepContent>
           </Step>
         ) )}
