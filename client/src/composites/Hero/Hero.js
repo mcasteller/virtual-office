@@ -91,7 +91,6 @@ function Hero () {
           size="large"
           className={classes.button}
           component="a"
-          href="/premium-themes/onepirate/sign-up/"
         >
           Ingreso
         </Button>
