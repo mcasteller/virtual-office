@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
+import { Context } from '../../../context/AppProvider/store';
 import CategoryList from './Categories';
 import Detail from './Detail';
 import Preview from './Preview';
@@ -75,6 +76,9 @@ function getSteps () {
 }
 
 export default function ServiceRequest () {
+
+  // hooks
+  const [ state, actions ] = useContext( Context )
   const classes = useStyles();
   const [ activeStep, setActiveStep ] = React.useState( 0 );
   const [ category, setCategory ] = React.useState( {} );
@@ -104,6 +108,7 @@ export default function ServiceRequest () {
     setActiveStep( 0 );
   };
 
+  //TODO: final message should be showed as picker component or similar
   return (
     <div className={classes.root}>
       <Stepper
@@ -121,6 +126,7 @@ export default function ServiceRequest () {
               />}
               {index === 1 &&
               <Detail
+                user={state.user}
                 category={category}
                 handleNext={( data ) => handleRequestDetail( data )}
                 handleBack={handleBack}
@@ -161,17 +167,6 @@ export default function ServiceRequest () {
           <Typography>
             La solicitud ha sido enviada con exito, puede revisarla en el listado de servicios contratados.
           </Typography>
-          <Button
-            className={classes.button}
-            onClick={handleReset}
-            color="secondary"
-            variant="contained"
-            size="large"
-          >
-            <Link to="/dashboard" style={{ textDecoration: 'none' }}>
-              Ver servicios contratados
-            </Link>
-          </Button>
         </Paper>
       )}
     </div>
